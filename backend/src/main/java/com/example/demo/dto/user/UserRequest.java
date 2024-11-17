@@ -35,27 +35,21 @@ public record UserRequest(
         String lastName,
 
         @Schema(description = "The age of the user (required)")
-        @NotBlank(message = "Age cannot be blank")
         int age,
 
         @Schema(description = "Gender of the user (required)")
-        @NotBlank(message = "Gender cannot be blank")
         Gender gender,
 
         @Schema(description = "The height of the user (required)")
-        @NotBlank(message = "Height cannot be blank")
         double height,
 
         @Schema(description = "The weight of the user (required)")
-        @NotBlank(message = "Weight cannot be blank")
         double weight,
 
         @Schema(description = "The fitness goals of the user")
-        @NotBlank(message = "Fitness goals cannot be blank")
-        Goals goals,
+        Goals fitnessGoals,
 
         @Schema(description = "The activity level of the user")
-        @NotBlank(message = "Activity level cannot be blank")
         ActivityLevel activityLevel
 
 ) {
@@ -69,7 +63,7 @@ public record UserRequest(
             Gender gender,
             double height,
             double weight,
-            Goals goals,
+            Goals fitnessGoals,
             ActivityLevel activityLevel
     ) {
         this.username = username;
@@ -81,7 +75,7 @@ public record UserRequest(
         this.gender = gender;
         this.height = height;
         this.weight = weight;
-        this.goals = goals;
+        this.fitnessGoals = fitnessGoals;
         this.activityLevel = activityLevel;
     }
 }

@@ -1,4 +1,4 @@
 package com.example.demo.dto;
 
-public record ResponseDto() {
+public record ResponseDto(String message) {
 }
