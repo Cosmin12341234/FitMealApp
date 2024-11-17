@@ -1,9 +1,12 @@
 package com.example.demo.dto.user;
 
+import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.model.enums.ActivityLevel;
 import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.List;
 
 public record UserResponse(
 
@@ -41,8 +44,10 @@ public record UserResponse(
         Goals goals,
 
         @Schema(description = "The activity level of the user")
-        ActivityLevel activityLevel
+        ActivityLevel activityLevel,
 
+        @Schema(description = "The workouts of the user")
+        List<WorkoutResponse> workouts
 ) {
     public UserResponse(
             Long id,
@@ -56,7 +61,8 @@ public record UserResponse(
             double height,
             double weight,
             Goals goals,
-            ActivityLevel activityLevel
+            ActivityLevel activityLevel,
+            List<WorkoutResponse> workouts
     ) {
         this.id = id;
         this.username = username;
@@ -70,5 +76,6 @@ public record UserResponse(
         this.weight = weight;
         this.goals = goals;
         this.activityLevel = activityLevel;
+        this.workouts = workouts;
     }
 }

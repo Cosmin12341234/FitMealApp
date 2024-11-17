@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.user.UserRequest;
 import com.example.demo.dto.user.UserResponse;
+import com.example.demo.exceptions.AuthException;
 import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -11,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -64,7 +68,7 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
         userService.delete(userId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Update a user", description = "This endpoint is used to update an existing user.")

@@ -5,6 +5,7 @@ import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record UserRequest(
@@ -35,21 +36,27 @@ public record UserRequest(
         String lastName,
 
         @Schema(description = "The age of the user (required)")
+        @NotNull(message = "Age cannot be null")
         int age,
 
         @Schema(description = "Gender of the user (required)")
+        @NotNull(message = "Gender cannot be null")
         Gender gender,
 
         @Schema(description = "The height of the user (required)")
+        @NotNull(message = "Height cannot be null")
         double height,
 
         @Schema(description = "The weight of the user (required)")
+        @NotNull(message = "Weight cannot be null")
         double weight,
 
         @Schema(description = "The fitness goals of the user")
+        @NotNull(message = "Fitness goals cannot be null")
         Goals fitnessGoals,
 
         @Schema(description = "The activity level of the user")
+        @NotNull(message = "Activity level cannot be null")
         ActivityLevel activityLevel
 
 ) {

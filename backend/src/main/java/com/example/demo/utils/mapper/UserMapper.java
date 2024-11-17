@@ -22,7 +22,9 @@ public final class UserMapper {
                 user.getHeight(),
                 user.getWeight(),
                 user.getFitnessGoals(),
-                user.getActivityLevel()
+                user.getActivityLevel(),
+                user.getWorkouts() != null ?
+                        WorkoutMapper.entityListToDto(user.getWorkouts()):null
         );
     }
 
