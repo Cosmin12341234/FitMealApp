@@ -1,11 +1,9 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -38,10 +36,8 @@ public class Workout {
     @Schema(description = "The calories burned during the workout")
     private double caloriesBurned;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @Schema(description = "The user that performed the workout")
     private User user;
 
     public Workout(String type, int duration, LocalDateTime date, double caloriesBurned, User user) {

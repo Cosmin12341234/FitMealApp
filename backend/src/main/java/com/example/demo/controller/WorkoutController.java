@@ -64,15 +64,9 @@ public class WorkoutController {
                             schema = @Schema(implementation = ResponseDto.class))})
     })
     @DeleteMapping("/{workoutId}")
-    public ResponseEntity<?> deleteWorkout(@PathVariable("workoutId") Long workoutId) {
-        try {
-            workoutService.deleteWorkout(workoutId);
-            return ResponseEntity.noContent().build();
-        } catch (AuthException.NotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Workout not found"));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDto("Internal server error"));
-        }
+    public ResponseEntity<?> deleteUser(@PathVariable("workoutId") Long workoutId) {
+        workoutService.deleteWorkout(workoutId);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Update a workout", description = "This endpoint is used to update an existing workout." +

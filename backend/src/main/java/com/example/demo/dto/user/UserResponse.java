@@ -46,7 +46,7 @@ public record UserResponse(
         @Schema(description = "The activity level of the user")
         ActivityLevel activityLevel,
 
-        @Schema(description = "The workouts of the user")
+        @Schema(description = "The list of workouts of the user")
         List<WorkoutResponse> workouts
 ) {
     public UserResponse(

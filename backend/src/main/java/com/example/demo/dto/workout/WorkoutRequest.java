@@ -27,16 +27,16 @@ public record WorkoutRequest(
         @NotNull(message = "Calories burned cannot be null")
         double caloriesBurned,
 
-        @Schema(description = "The user that performed the workout")
+        @Schema(description = "The user associated with the workout (required)")
         @NotNull(message = "User cannot be null")
         User user
 
 ) {
-    public WorkoutRequest(String type, int duration, LocalDateTime date, double caloriesBurned,User user){
-        this.type=type;
-        this.duration=duration;
-        this.date=date;
-        this.caloriesBurned=caloriesBurned;
-        this.user=user;
-}
+    public WorkoutRequest(String type, int duration, LocalDateTime date, double caloriesBurned, User user) {
+        this.type = type;
+        this.duration = duration;
+        this.date = date;
+        this.caloriesBurned = caloriesBurned;
+        this.user = user;
+    }
 }
