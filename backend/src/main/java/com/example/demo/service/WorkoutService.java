@@ -38,7 +38,6 @@ public class WorkoutService {
         workout.setDuration(workoutRequest.duration());
         workout.setDate(workoutRequest.date());
         workout.setCaloriesBurned(workoutRequest.caloriesBurned());
-        workout.setUser(workoutRequest.user());
         return WorkoutMapper.entityToDto(workoutRepository.save(workout));
     }
 

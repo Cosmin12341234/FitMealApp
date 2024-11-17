@@ -3,7 +3,6 @@ package com.example.demo.model;
 import com.example.demo.model.enums.ActivityLevel;
 import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -71,9 +70,7 @@ public class User {
     @Schema(description = "The activity level of the user")
     private ActivityLevel activityLevel;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Schema(description = "The workouts of the user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Workout> workouts;
 
     public User(String username, String email, String password, String firstName, String lastName, int age, Gender gender, double height, double weight, Goals fitnessGoals, ActivityLevel activityLevel) {
