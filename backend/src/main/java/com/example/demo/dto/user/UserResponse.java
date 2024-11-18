@@ -1,5 +1,6 @@
 package com.example.demo.dto.user;
 
+import com.example.demo.dto.meal.MealResponse;
 import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.model.enums.ActivityLevel;
 import com.example.demo.model.enums.Gender;
@@ -47,7 +48,10 @@ public record UserResponse(
         ActivityLevel activityLevel,
 
         @Schema(description = "The list of workouts of the user")
-        List<WorkoutResponse> workouts
+        List<WorkoutResponse> workouts,
+
+        @Schema(description = "The list of meals of the user")
+        List<MealResponse> meals
 ) {
     public UserResponse(
             Long id,
@@ -62,7 +66,8 @@ public record UserResponse(
             double weight,
             Goals goals,
             ActivityLevel activityLevel,
-            List<WorkoutResponse> workouts
+            List<WorkoutResponse> workouts,
+            List<MealResponse> meals
     ) {
         this.id = id;
         this.username = username;
@@ -77,5 +82,6 @@ public record UserResponse(
         this.goals = goals;
         this.activityLevel = activityLevel;
         this.workouts = workouts;
+        this.meals = meals;
     }
 }

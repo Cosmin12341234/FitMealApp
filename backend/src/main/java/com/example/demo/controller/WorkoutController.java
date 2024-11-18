@@ -47,7 +47,7 @@ public class WorkoutController {
     })
     @PostMapping
     public ResponseEntity<WorkoutResponse> createWorkout(@Valid @RequestBody WorkoutRequest workoutRequest) {
-        WorkoutResponse createdWorkout = workoutService.save(workoutRequest);
+        WorkoutResponse createdWorkout = workoutService.createWorkout(workoutRequest);
         return ResponseEntity.ok(createdWorkout);
     }
 
@@ -64,7 +64,7 @@ public class WorkoutController {
                             schema = @Schema(implementation = ResponseDto.class))})
     })
     @DeleteMapping("/{workoutId}")
-    public ResponseEntity<?> deleteUser(@PathVariable("workoutId") Long workoutId) {
+    public ResponseEntity<?> deleteWorkout(@PathVariable("workoutId") Long workoutId) {
         workoutService.deleteWorkout(workoutId);
         return ResponseEntity.ok().build();
     }
@@ -76,9 +76,6 @@ public class WorkoutController {
             @ApiResponse(responseCode = "200", description = "Workout updated successfully",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = WorkoutResponse.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid request due to validation errors",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseDto.class))}),
             @ApiResponse(responseCode = "404", description = "The workout with the given id does not exist",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseDto.class))}),
@@ -89,7 +86,7 @@ public class WorkoutController {
     @PutMapping("/{workoutId}")
     public ResponseEntity<WorkoutResponse> updateWorkout(@PathVariable("workoutId") Long workoutId,
                                                          @Valid @RequestBody WorkoutRequest workoutRequest) {
-        WorkoutResponse updatedWorkout = workoutService.update(workoutId, workoutRequest);
+        WorkoutResponse updatedWorkout = workoutService.updateWorkout(workoutId, workoutRequest);
         return ResponseEntity.ok(updatedWorkout);
     }
 
@@ -107,7 +104,7 @@ public class WorkoutController {
     })
     @GetMapping("/{workoutId}")
     public ResponseEntity<WorkoutResponse> getWorkoutById(@PathVariable("workoutId") Long workoutId) {
-        WorkoutResponse workoutResponse = workoutService.findResponseById(workoutId);
+        WorkoutResponse workoutResponse = workoutService.findWorkoutResponseById(workoutId);
         return ResponseEntity.ok(workoutResponse);
     }
 

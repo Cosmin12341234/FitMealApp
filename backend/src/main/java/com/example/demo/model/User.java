@@ -70,8 +70,13 @@ public class User {
     @Schema(description = "The activity level of the user")
     private ActivityLevel activityLevel;
 
+    @Schema(description = "The workouts of the user")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Workout> workouts;
+
+    @Schema(description = "The meals of the user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Meal> meals;
 
     public User(String username, String email, String password, String firstName, String lastName, int age, Gender gender, double height, double weight, Goals fitnessGoals, ActivityLevel activityLevel) {
         this.username = username;

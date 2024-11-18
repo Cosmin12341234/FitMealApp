@@ -38,6 +38,7 @@ public class Workout {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @Schema(description = "The user who did the workout")
     private User user;
 
     public Workout(String type, int duration, LocalDateTime date, double caloriesBurned, User user) {
