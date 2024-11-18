@@ -20,20 +20,20 @@ public class WorkoutService {
     }
 
     @Transactional
-    public WorkoutResponse save(WorkoutRequest workoutRequest){
+    public WorkoutResponse createWorkout(WorkoutRequest workoutRequest){
         Workout workoutToSave = new Workout(workoutRequest.type(),workoutRequest.duration(),workoutRequest.date(),workoutRequest.caloriesBurned(),workoutRequest.user());
         return WorkoutMapper.entityToDto(workoutRepository.save(workoutToSave));
     }
 
     @Transactional
     public void deleteWorkout(Long id){
-        Workout workout = findById(id);
+        Workout workout = findWorkoutById(id);
         workoutRepository.delete(workout);
     }
 
     @Transactional
-    public WorkoutResponse update(Long id, WorkoutRequest workoutRequest) {
-        Workout workout = findById(id);
+    public WorkoutResponse updateWorkout(Long id, WorkoutRequest workoutRequest) {
+        Workout workout = findWorkoutById(id);
         workout.setType(workoutRequest.type());
         workout.setDuration(workoutRequest.duration());
         workout.setDate(workoutRequest.date());
@@ -41,20 +41,20 @@ public class WorkoutService {
         return WorkoutMapper.entityToDto(workoutRepository.save(workout));
     }
 
-    public Workout findById(Long id) {
+    public Workout findWorkoutById(Long id) {
         return workoutRepository.findById(id)
                 .orElseThrow(() -> new AuthException.NotFoundException("Workout not found with id: " + id));
     }
 
-    public WorkoutResponse findResponseById(Long id) {
-        return WorkoutMapper.entityToDto(findById(id));
+    public WorkoutResponse findWorkoutResponseById(Long id) {
+        return WorkoutMapper.entityToDto(findWorkoutById(id));
     }
 
-    public List<Workout> findAll() {
+    public List<Workout> getALlWorkouts() {
         return workoutRepository.findAll();
     }
 
     public List<WorkoutResponse> getAllWorkoutResponses() {
-        return WorkoutMapper.entityListToDto(findAll());
+        return WorkoutMapper.entityListToDto(getALlWorkouts());
     }
 }
