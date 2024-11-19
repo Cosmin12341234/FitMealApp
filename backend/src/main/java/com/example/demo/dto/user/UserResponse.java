@@ -7,6 +7,7 @@ import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public record UserResponse(
@@ -29,8 +30,8 @@ public record UserResponse(
         @Schema(description = "The last name of the user")
         String lastName,
 
-        @Schema(description = "The age of the user")
-        int age,
+        @Schema(description = "The dob of the user")
+        LocalDate dob,
 
         @Schema(description = "Gender of the user")
         Gender gender,
@@ -60,7 +61,7 @@ public record UserResponse(
             String password,
             String firstName,
             String lastName,
-            int age,
+            LocalDate dob,
             Gender gender,
             double height,
             double weight,
@@ -75,7 +76,7 @@ public record UserResponse(
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.dob = dob;
         this.gender = gender;
         this.height = height;
         this.weight = weight;

@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+
 public record UserRequest(
 
         @Schema(description = "The username of the user (required)")
@@ -35,9 +37,9 @@ public record UserRequest(
         @Size(min = 3, max = 64, message = "Last name must be between 3 and 64 characters")
         String lastName,
 
-        @Schema(description = "The age of the user (required)")
-        @NotNull(message = "Age cannot be null")
-        int age,
+        @Schema(description = "The dob of the user (required)")
+        @NotNull(message = "Dob cannot be null")
+        LocalDate dob,
 
         @Schema(description = "Gender of the user (required)")
         @NotNull(message = "Gender cannot be null")
@@ -66,7 +68,7 @@ public record UserRequest(
             String password,
             String firstName,
             String lastName,
-            int age,
+            LocalDate dob,
             Gender gender,
             double height,
             double weight,
@@ -78,7 +80,7 @@ public record UserRequest(
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.dob = dob;
         this.gender = gender;
         this.height = height;
         this.weight = weight;

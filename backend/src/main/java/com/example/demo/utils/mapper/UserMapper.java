@@ -17,7 +17,7 @@ public final class UserMapper {
                 user.getPassword(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getAge(),
+                user.getDob(),
                 user.getGender(),
                 user.getHeight(),
                 user.getWeight(),
