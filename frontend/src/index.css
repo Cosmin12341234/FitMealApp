@@ -1,18 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html, body, :root {
-  height: 100%;
-}
-
-body {
-  background-color: ghostwhite;
-}
-
 
 @layer base {
   :root {
@@ -82,7 +70,6 @@ body {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
