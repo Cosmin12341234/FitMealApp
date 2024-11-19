@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -44,8 +45,8 @@ public class User {
     private String lastName;
 
     @Column(nullable = false)
-    @Schema(description = "The age of the user")
-    private int age;
+    @Schema(description = "The dob of the user")
+    private LocalDate dob;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -78,13 +79,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Meal> meals;
 
-    public User(String username, String email, String password, String firstName, String lastName, int age, Gender gender, double height, double weight, Goals fitnessGoals, ActivityLevel activityLevel) {
+    public User(String username, String email, String password, String firstName, String lastName, LocalDate dob, Gender gender, double height, double weight, Goals fitnessGoals, ActivityLevel activityLevel) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.dob = dob;
         this.gender = gender;
         this.height = height;
         this.weight = weight;

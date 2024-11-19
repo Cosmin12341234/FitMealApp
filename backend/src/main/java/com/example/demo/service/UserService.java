@@ -9,6 +9,8 @@ import com.example.demo.utils.mapper.UserMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -23,7 +25,7 @@ public class UserService {
     @Transactional
     public UserResponse save(UserRequest userRequest){
         User userToSave = new User(userRequest.username(),userRequest.email(),userRequest.password(),
-                userRequest.firstName(),userRequest.lastName(),userRequest.age(),userRequest.gender(),userRequest.height(),userRequest.weight(),userRequest.fitnessGoals(),userRequest.activityLevel());
+                userRequest.firstName(),userRequest.lastName(),userRequest.dob(),userRequest.gender(),userRequest.height(),userRequest.weight(),userRequest.fitnessGoals(),userRequest.activityLevel());
         return UserMapper.entityToDto(userRepository.save(userToSave));
 
     }
@@ -42,7 +44,7 @@ public class UserService {
         user.setPassword(userRequest.password());
         user.setFirstName(userRequest.firstName());
         user.setLastName(userRequest.lastName());
-        user.setAge(userRequest.age());
+        user.setDob(userRequest.dob());
         user.setGender(userRequest.gender());
         user.setHeight(userRequest.height());
         user.setWeight(userRequest.weight());
@@ -80,6 +82,12 @@ public class UserService {
 
     public boolean checkIfUsernameExists(String username) {
         return userRepository.existsByUsername(username);
+    }
+
+    public int getAgeById(Long id) {
+        User user = findById(id);
+        LocalDate bod = user.getDob();
+        return Period.between(bod, LocalDate.now()).getYears();
     }
 
 }

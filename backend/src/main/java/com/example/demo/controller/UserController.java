@@ -139,4 +139,20 @@ public class UserController {
         List<UserResponse> users = userService.getAllUserResponses();
         return ResponseEntity.ok(users);
     }
+
+    @Operation(summary = "Get the age of the user with specified id", description = "This endpoint is used to retrieve the age of a user with a specified id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Age found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/ageById/{userId}")
+    public ResponseEntity<Integer> getAgeById(@PathVariable("userId") Long userId) {
+        int age = userService.getAgeById(userId);
+        return ResponseEntity.ok(age);
+    }
+
 }
