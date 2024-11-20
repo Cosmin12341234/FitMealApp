@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "@/apis/auth/AuthService";
 import { LoginRequest } from "@/utils/types";
 import { capitalizeString } from "@/lib/utils";
+import {Logo} from "@/components/ui/logo.tsx";
 
 const customErrorMap: z.ZodErrorMap = (issue, ctx) => {
     if (issue.code === z.ZodIssueCode.too_small) {
@@ -62,12 +63,18 @@ const SignInForm = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#f4ebd0]">
-            <Card className="w-full max-w-md bg-white shadow-lg">
-                <CardHeader className="space-y-1 bg-[#d6ad60] rounded-t-lg">
-                    <CardTitle className="text-2xl font-bold text-center text-[#122620]">
-                        Login to FitMeal
+        <div className="min-h-screen flex items-center justify-center bg-[#E9DDD4]">
+            <Card className="w-full max-w-xl bg-white shadow-lg">
+                <CardHeader className="space-y-4 bg-[#DC143C] rounded-t-lg p-8">
+                    <div className="flex justify-center mb-6">
+                        <Logo />
+                    </div>
+                    <CardTitle className="text-4xl font-bold text-center text-white">
+                        Welcome Back
                     </CardTitle>
+                    <p className="text-sm text-center text-white/80">
+                        Your journey to vitality continues here
+                    </p>
                 </CardHeader>
                 <CardContent className="mt-4">
                     <Form {...form}>
@@ -75,17 +82,16 @@ const SignInForm = () => {
                             <FormField
                                 control={form.control}
                                 name="username"
-                                render={({ field }) => (
+                                render={({field}) => (
                                     <FormItem>
-                                        <FormLabel className="text-[#122620]">Username</FormLabel>
+                                        <FormLabel className="text-[#000000]">Username</FormLabel>
                                         <FormControl>
                                             <Input
                                                 {...field}
-                                                className="border-[#b68d40] focus:border-[#d6ad60] focus:ring-[#d6ad60]"
                                                 placeholder="Enter your username"
                                             />
                                         </FormControl>
-                                        <FormMessage className="text-red-500" />
+                                        <FormMessage className="text-[#900020]"/>
                                     </FormItem>
                                 )}
                             />
@@ -93,34 +99,33 @@ const SignInForm = () => {
                             <FormField
                                 control={form.control}
                                 name="password"
-                                render={({ field }) => (
+                                render={({field}) => (
                                     <FormItem>
-                                        <FormLabel className="text-[#122620]">Password</FormLabel>
+                                        <FormLabel className="text-[#000000]">Password</FormLabel>
                                         <FormControl>
                                             <Input
                                                 {...field}
                                                 type="password"
-                                                className="border-[#b68d40] focus:border-[#d6ad60] focus:ring-[#d6ad60]"
                                                 placeholder="Enter your password"
                                             />
                                         </FormControl>
-                                        <FormMessage className="text-red-500" />
+                                        <FormMessage className="text-[#900020]"/>
                                     </FormItem>
                                 )}
                             />
 
                             <Button
                                 type="submit"
-                                className="w-full bg-[#b68d40] hover:bg-[#d6ad60] text-[#122620] font-semibold transition-colors duration-300"
+                                className="w-full bg-[#DC143C] hover:bg-[#900020] text-white font-semibold transition-colors duration-300"
                             >
-                                Log in
+                                Log in to your healthy journey
                             </Button>
                         </form>
                     </Form>
 
-                    <div className="mt-4 text-center text-sm text-[#122620]">
-                        Don't have an account?{" "}
-                        <Link to="/signup" className="text-[#b68d40] hover:underline font-semibold">
+                    <div className="mt-4 text-center text-sm text-[#000000]">
+                        Ready to start your fitness and nutrition journey?{" "}
+                        <Link to="/signup" className="text-[#DC143C] hover:text-[#900020] font-semibold">
                             Sign up
                         </Link>
                     </div>

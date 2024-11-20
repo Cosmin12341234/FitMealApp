@@ -6,10 +6,14 @@ export const Toaster = () => {
             position="bottom-right"
             toastOptions={{
                 style: {
-                    background: 'white',
-                    border: '1px solid #b68d40',
-                    color: '#122620',
-                },
+                    background: '#E9DDD4',
+                    border: '2px solid #DC143C',
+                    color: '#000000',
+                    borderRadius: '8px',
+                    padding: '16px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                }
             }}
         />
     )

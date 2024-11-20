@@ -77,11 +77,15 @@ const FormItem = React.forwardRef<
 
     return (
         <FormItemContext.Provider value={{ id }}>
-            <div ref={ref} className={cn(
-                "space-y-4",  // Increased spacing
-                "mb-6",      // Added bottom margin
-                className
-            )} {...props} />
+            <div
+                ref={ref}
+                className={cn(
+                    "space-y-3",
+                    "mb-4",
+                    className
+                )}
+                {...props}
+            />
         </FormItemContext.Provider>
     )
 })
@@ -97,8 +101,10 @@ const FormLabel = React.forwardRef<
         <Label
             ref={ref}
             className={cn(
-                "text-lg font-medium mb-2", // Larger text and spacing
-                error && "text-destructive",
+                "text-sm font-medium",
+                "text-[#000000]",
+                "mb-1.5",
+                error && "text-[#DC143C]",
                 className
             )}
             htmlFor={formItemId}
@@ -125,10 +131,19 @@ const FormControl = React.forwardRef<
             }
             aria-invalid={!!error}
             className={cn(
-                "w-full",    // Full width
-                "text-base", // Larger text
-                "p-4",      // More padding
-                error && "border-red-500"
+                "w-full",
+                "text-base",
+                "rounded-md",
+                "border border-[#DC143C]",
+                "bg-white",
+                "px-4 py-2",
+                "placeholder:text-gray-400",
+                "focus:outline-none",
+                "focus:ring-2",
+                "focus:ring-[#DC143C]",
+                "focus:ring-opacity-50",
+                error && "border-[#900020] focus:ring-[#900020]",
+                props.className
             )}
             {...props}
         />
@@ -152,8 +167,8 @@ const FormMessage = React.forwardRef<
             ref={ref}
             id={formMessageId}
             className={cn(
-                "text-base font-medium mt-2", // Larger text and spacing
-                "text-destructive",
+                "text-sm font-medium mt-1.5",
+                "text-[#DC143C]",
                 className
             )}
             {...props}

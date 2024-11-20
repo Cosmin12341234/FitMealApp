@@ -1,7 +1,7 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, ...props }, ref) => {
@@ -9,22 +9,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <button
                 className={cn(
                     "inline-flex items-center justify-center rounded-md",
-                    // Added larger padding and text size 👇
-                    "px-6 py-3 text-lg font-medium",
-                    "ring-offset-background transition-colors",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                    "px-4 py-2 text-base font-medium",
+                    "h-10",
+                    "transition-colors",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
                     "disabled:pointer-events-none disabled:opacity-50",
-                    // Add width if you want full-width buttons 👇
                     "w-full",
+                    "bg-[#DC143C] text-white",
+                    "hover:bg-[#900020]",
+                    "focus-visible:ring-[#900020]",
                     className
                 )}
                 ref={ref}
                 {...props}
             />
-        )
+        );
     }
-)
+);
 
-Button.displayName = "Button"
+Button.displayName = "Button";
 
-export { Button }
+export { Button };
