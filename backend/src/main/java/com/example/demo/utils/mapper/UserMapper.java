@@ -12,6 +12,7 @@ public final class UserMapper {
     public static UserResponse entityToDto(User user) {
         return new UserResponse(
                 user.getId(),
+                user.getRole(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),

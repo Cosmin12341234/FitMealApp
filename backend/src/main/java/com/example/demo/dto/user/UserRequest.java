@@ -3,6 +3,7 @@ package com.example.demo.dto.user;
 import com.example.demo.model.enums.ActivityLevel;
 import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
+import com.example.demo.model.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,10 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record UserRequest(
+
+        @Schema(description ="The role of the user")
+        @NotNull(message = "Role cannot be null")
+        Role role,
 
         @Schema(description = "The username of the user (required)")
         @NotBlank(message = "Username cannot be blank")
@@ -63,6 +68,7 @@ public record UserRequest(
 
 ) {
     public UserRequest(
+            Role role,
             String username,
             String email,
             String password,
@@ -75,6 +81,7 @@ public record UserRequest(
             Goals fitnessGoals,
             ActivityLevel activityLevel
     ) {
+        this.role=role;
         this.username = username;
         this.email = email;
         this.password = password;
