@@ -2,7 +2,6 @@ export type User = {
     id: number;
     role:Role
     username: string;
-    name: string;
     email: string;
     password: string;
     firstName: string;
@@ -11,7 +10,7 @@ export type User = {
     gender: Gender;
     height: number;
     weight: number;
-    fitnessGoal: Goals;
+    fitnessGoals: Goals;
     activityLevel: ActivityLevel;
     workouts:Workout[];
     meals:Meal[];
@@ -21,16 +20,15 @@ export type User = {
 export type UserRequest = {
     role:Role
     username: string;
-    name: string;
     email: string;
     password: string;
     firstName: string;
     lastName: string;
     dob: string;
     gender: Gender;
-    height: number;
-    weight: number;
-    fitnessGoal: Goals;
+    height: number|null;
+    weight: number|null;
+    fitnessGoals: Goals;
     activityLevel: ActivityLevel;
 
 };
@@ -39,7 +37,6 @@ export type UserResponse = {
     id: number;
     role:Role
     username: string;
-    name: string;
     email: string;
     password: string;
     firstName: string;
@@ -48,7 +45,7 @@ export type UserResponse = {
     gender: Gender;
     height: number;
     weight: number;
-    fitnessGoal: Goals;
+    fitnessGoals: Goals;
     activityLevel: ActivityLevel;
     workouts:Workout[];
     meals:Meal[];

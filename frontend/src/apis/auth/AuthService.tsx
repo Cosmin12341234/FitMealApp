@@ -1,8 +1,8 @@
 import {handleLogin,handleSignup} from "./authAPI.tsx";
-import {LoginRequest,User} from "../../utils/types.tsx";
+import {LoginRequest, UserRequest} from "../../utils/types.tsx";
 import {loginFail,loginSuccess,signupSuccess} from "./responseConstants.tsx";
 
-const signup = (data: User) => {
+const signup = (data: UserRequest) => {
     return handleSignup(data)
         .then((res) => {
             return res;
