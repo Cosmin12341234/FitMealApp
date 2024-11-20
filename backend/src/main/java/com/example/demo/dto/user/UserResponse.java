@@ -5,6 +5,7 @@ import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.model.enums.ActivityLevel;
 import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
+import com.example.demo.model.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;
@@ -14,6 +15,9 @@ public record UserResponse(
 
         @Schema(description = "The id of the user")
         Long id,
+
+        @Schema(description = "The role of the user")
+        Role role,
 
         @Schema(description = "The username of the user")
         String username,
@@ -56,6 +60,7 @@ public record UserResponse(
 ) {
     public UserResponse(
             Long id,
+            Role role,
             String username,
             String email,
             String password,
@@ -71,6 +76,7 @@ public record UserResponse(
             List<MealResponse> meals
     ) {
         this.id = id;
+        this.role = role;
         this.username = username;
         this.email = email;
         this.password = password;

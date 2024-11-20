@@ -24,7 +24,7 @@ public class UserService {
 
     @Transactional
     public UserResponse save(UserRequest userRequest){
-        User userToSave = new User(userRequest.username(),userRequest.email(),userRequest.password(),
+        User userToSave = new User(userRequest.role(),userRequest.username(),userRequest.email(),userRequest.password(),
                 userRequest.firstName(),userRequest.lastName(),userRequest.dob(),userRequest.gender(),userRequest.height(),userRequest.weight(),userRequest.fitnessGoals(),userRequest.activityLevel());
         return UserMapper.entityToDto(userRepository.save(userToSave));
 
@@ -39,6 +39,7 @@ public class UserService {
     @Transactional
     public UserResponse update(Long id, UserRequest userRequest) {
         User user = findById(id);
+        user.setRole(userRequest.role());
         user.setUsername(userRequest.username());
         user.setEmail(userRequest.email());
         user.setPassword(userRequest.password());

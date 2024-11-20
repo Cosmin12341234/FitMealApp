@@ -1,5 +1,6 @@
 export type User = {
     id: number;
+    role:Role
     username: string;
     name: string;
     email: string;
@@ -18,6 +19,7 @@ export type User = {
 };
 
 export type UserRequest = {
+    role:Role
     username: string;
     name: string;
     email: string;
@@ -35,6 +37,7 @@ export type UserRequest = {
 
 export type UserResponse = {
     id: number;
+    role:Role
     username: string;
     name: string;
     email: string;
@@ -56,6 +59,7 @@ export type LoginRequest = {
     username: string;
     password: string;
 }
+export enum Role { USER = "USER", ADMIN = "ADMIN" }
 
 export enum Gender { MALE = "MALE", FEMALE = "FEMALE" }
 

@@ -3,6 +3,7 @@ package com.example.demo.model;
 import com.example.demo.model.enums.ActivityLevel;
 import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
+import com.example.demo.model.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +24,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "The id of the user")
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Schema(description = "The role of the user")
+    private Role role;
 
     @Column(nullable = false, length = 64)
     @Schema(description = "The username of the user")
@@ -79,7 +85,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Meal> meals;
 
-    public User(String username, String email, String password, String firstName, String lastName, LocalDate dob, Gender gender, double height, double weight, Goals fitnessGoals, ActivityLevel activityLevel) {
+    public User(Role role,String username, String email, String password, String firstName, String lastName, LocalDate dob, Gender gender, double height, double weight, Goals fitnessGoals, ActivityLevel activityLevel) {
+        this.role=role;
         this.username = username;
         this.email = email;
         this.password = password;
