@@ -71,25 +71,29 @@ export type Workout = {
     type:string;
     duration:number;
     date:string;
-    caloriesBurnt:number;
-    user:User;
+    caloriesBurned:number;
+    user: {
+        id: number;
+    };
 };
 
 export type WorkoutRequest = {
-    type:string;
-    duration:number;
-    date:string;
-    caloriesBurnt:number;
-    userId:number;
+    type: string;
+    duration: number;
+    date: string;
+    caloriesBurned: number;
+    user: {
+        id: number;
+    };
 };
 
 export type WorkoutResponse = {
     id: number;
-    type:string;
-    duration:number;
-    date:string;
-    caloriesBurnt:number;
-    userId:number;
+    type: string;
+    duration: number;
+    date: string;
+    caloriesBurned: number;
+    userId: number;
 };
 
 export type Meal = {
@@ -100,4 +104,23 @@ export type Meal = {
     date:string;
     description:string;
     user:User;
+};
+
+export type MealRequest = {
+    name:string;
+    type:Type;
+    calories:number;
+    date:string;
+    description:string;
+    userId:number;
+};
+
+export type MealResponse = {
+    id: number;
+    name:string;
+    type:Type;
+    calories:number;
+    date:string;
+    description:string;
+    userId:number;
 };

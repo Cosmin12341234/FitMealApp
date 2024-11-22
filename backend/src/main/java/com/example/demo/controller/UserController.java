@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.dto.user.UserRequest;
 import com.example.demo.dto.user.UserResponse;
+import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.exceptions.AuthException;
 import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -155,4 +156,22 @@ public class UserController {
         return ResponseEntity.ok(age);
     }
 
+
+    @Operation(summary = "Get all workouts of a user by username", description = "This endpoint is used to retrieve all workouts of a user by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Workouts found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = WorkoutResponse.class)))}),
+            @ApiResponse(responseCode = "404", description = "No workouts found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/workouts/{username}")
+    public ResponseEntity<List<WorkoutResponse>> getAllWorkoutsByUsername(@PathVariable("username") String username) {
+        List<WorkoutResponse> workouts = userService.getWorkoutsByUsername(username);
+        return ResponseEntity.ok(workouts);
+    }
 }

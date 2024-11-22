@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.dto.user.UserRequest;
 import com.example.demo.dto.user.UserResponse;
+import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.exceptions.AuthException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.utils.mapper.UserMapper;
+import com.example.demo.utils.mapper.WorkoutMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +91,11 @@ public class UserService {
         User user = findById(id);
         LocalDate bod = user.getDob();
         return Period.between(bod, LocalDate.now()).getYears();
+    }
+
+    public List<WorkoutResponse> getWorkoutsByUsername(String username) {
+        User user = findByUsername(username);
+        return WorkoutMapper.entityListToDto(user.getWorkouts());
     }
 
 }
