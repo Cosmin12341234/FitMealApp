@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record WorkoutRequest(
@@ -21,7 +22,7 @@ public record WorkoutRequest(
 
         @Schema(description = "The date and time of the workout (required)")
         @NotNull(message = "Date cannot be null")
-        LocalDateTime date,
+        LocalDate date,
 
         @Schema(description = "The calories burned during the workout (required)")
         @NotNull(message = "Calories burned cannot be null")
@@ -32,7 +33,7 @@ public record WorkoutRequest(
         User user
 
 ) {
-    public WorkoutRequest(String type, int duration, LocalDateTime date, double caloriesBurned, User user) {
+    public WorkoutRequest(String type, int duration, LocalDate date, double caloriesBurned, User user) {
         this.type = type;
         this.duration = duration;
         this.date = date;
