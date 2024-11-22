@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "app_workout")
@@ -30,7 +30,7 @@ public class Workout {
 
     @Column(nullable = false)
     @Schema(description = "The date of the workout")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(nullable = false)
     @Schema(description = "The calories burned during the workout")
@@ -41,7 +41,7 @@ public class Workout {
     @Schema(description = "The user who did the workout")
     private User user;
 
-    public Workout(String type, int duration, LocalDateTime date, double caloriesBurned, User user) {
+    public Workout(String type, int duration, LocalDate date, double caloriesBurned, User user) {
         this.type = type;
         this.duration = duration;
         this.date = date;
