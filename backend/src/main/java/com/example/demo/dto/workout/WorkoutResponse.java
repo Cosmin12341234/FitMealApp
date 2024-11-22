@@ -1,9 +1,8 @@
 package com.example.demo.dto.workout;
 
-import com.example.demo.model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record WorkoutResponse(
 
@@ -17,7 +16,7 @@ public record WorkoutResponse(
         int duration,
 
         @Schema(description = "The date and time of the workout")
-        LocalDateTime date,
+        LocalDate date,
 
         @Schema(description = "The calories burned during the workout")
         double caloriesBurned
@@ -27,7 +26,7 @@ public record WorkoutResponse(
             Long id,
             String type,
             int duration,
-            LocalDateTime date,
+            LocalDate date,
             double caloriesBurned
     ) {
         this.id = id;
