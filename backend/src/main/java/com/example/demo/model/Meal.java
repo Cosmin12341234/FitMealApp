@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "app_meal")
@@ -36,7 +36,7 @@ public class Meal {
 
     @Column(nullable = false)
     @Schema(description = "The date of the meal")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(nullable = false, length = 64)
     @Schema(description = "The description of the meal")
@@ -47,7 +47,7 @@ public class Meal {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Meal(String name, Type type, int calories, LocalDateTime date, String description,User user) {
+    public Meal(String name, Type type, int calories, LocalDate date, String description, User user) {
         this.name = name;
         this.type = type;
         this.calories = calories;

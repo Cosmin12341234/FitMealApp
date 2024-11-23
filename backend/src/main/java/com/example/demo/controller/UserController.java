@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResponseDto;
+import com.example.demo.dto.meal.MealResponse;
 import com.example.demo.dto.user.UserRequest;
 import com.example.demo.dto.user.UserResponse;
 import com.example.demo.dto.workout.WorkoutResponse;
@@ -173,5 +174,23 @@ public class UserController {
     public ResponseEntity<List<WorkoutResponse>> getAllWorkoutsByUsername(@PathVariable("username") String username) {
         List<WorkoutResponse> workouts = userService.getWorkoutsByUsername(username);
         return ResponseEntity.ok(workouts);
+    }
+
+    @Operation(summary = "Get all meals of a user by username", description = "This endpoint is used to retrieve all meals of a user by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Meals found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = MealResponse.class)))}),
+            @ApiResponse(responseCode = "404", description = "No meals found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/meals/{username}")
+    public ResponseEntity<List<MealResponse>> getAllMealsByUsername(@PathVariable("username") String username) {
+        List<MealResponse> meals = userService.getMealsByUsername(username);
+        return ResponseEntity.ok(meals);
     }
 }
