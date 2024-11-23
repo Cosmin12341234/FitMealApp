@@ -16,6 +16,7 @@ public final class MealMapper {
                 meal.getName(),
                 meal.getType(),
                 meal.getCalories(),
+                meal.getDate(),
                 meal.getDescription()
         );
     }

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record MealRequest(
 
@@ -26,7 +26,7 @@ public record MealRequest(
 
         @Schema(description = "The date of the meal")
         @NotNull(message = "Date cannot be null")
-        LocalDateTime date,
+        LocalDate date,
 
         @Schema(description = "The description of the meal")
         @NotBlank(message = "Description cannot be blank")
@@ -41,7 +41,7 @@ public record MealRequest(
             String name,
             Type type,
             int calories,
-            LocalDateTime date,
+            LocalDate date,
             String description,
             User user
     ) {
