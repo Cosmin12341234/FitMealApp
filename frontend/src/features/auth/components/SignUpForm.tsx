@@ -6,7 +6,7 @@ import * as z from "zod";
 import { Button } from "./ui/button.tsx";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form.tsx";
 import { Input } from "./ui/input.tsx";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select.tsx";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../shared/components/ui/select.tsx";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "@/features/auth/services/AuthService.tsx";

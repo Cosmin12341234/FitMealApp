@@ -2,7 +2,7 @@ import {
     handleAddWorkout,
     handleDeleteWorkout, handleGetWorkout,
     handleGetWorkouts,
-    handleUpdateWorkout
+    handleUpdateWorkout, handleWorkoutsByUsername
 } from "@/apis/workout/workoutAPI.tsx";
 import {WorkoutRequest} from "@/utils/types.tsx";
 
@@ -54,7 +54,7 @@ const getWorkout=(id:number)=>{
 const getWorkoutsByUsername=()=>{
     const username=localStorage.getItem('username');
     const password=localStorage.getItem('password');
-    return handleGetWorkouts(username!,password!)
+    return handleWorkoutsByUsername(username!,password!)
         .then((response)=>{
             return response;
         })

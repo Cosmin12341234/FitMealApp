@@ -3,17 +3,17 @@
 import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/features/shared/components/ui/card"
 import { DaySelector } from "@/features/shared/components/ui/day-selector"
-import { WorkoutForm } from "@/features/workout/components/ui/form"
-import { WorkoutList } from "@/features/workout/components/ui/list"
-import { WorkoutRequest, WorkoutResponse, User } from "@/utils/types"
+import { MealForm } from "@/features/meal/components/ui/form"
+import { MealList } from "@/features/meal/components/ui/list"
+import { MealRequest, MealResponse, User } from "@/utils/types"
 import { toast } from "sonner"
 import { useNavigate } from 'react-router-dom'
 import { UserService } from "@/features/user/services/UserService"
-import { WorkoutService } from "@/features/workout/services/WorkoutService"
+import { MealService } from "@/features/meal/services/MealService"
 import axios from 'axios'
 
-export default function WorkoutTracker() {
-    const [workouts, setWorkouts] = useState<WorkoutResponse[]>([])
+export default function MealTracker() {
+    const [meals, setMeals] = useState<MealResponse[]>([])
     const [selectedDate, setSelectedDate] = useState<Date>(new Date())
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState<User | null>(null)
@@ -33,7 +33,7 @@ export default function WorkoutTracker() {
             try {
                 const userProfile = await UserService.getByUsername()
                 setUser(userProfile)
-                fetchWorkouts()
+                fetchMeals()
             } catch (error) {
                 console.error('Error fetching user profile:', error)
                 toast.error("Failed to fetch user profile")
@@ -46,13 +46,13 @@ export default function WorkoutTracker() {
         fetchUserProfile()
     }, [navigate])
 
-    const fetchWorkouts = async () => {
+    const fetchMeals = async () => {
         try {
             setIsLoading(true)
-            const response = await WorkoutService.getWorkoutsByUsername()
-            setWorkouts(response)
+            const response = await MealService.getMealsByUsername()
+            setMeals(response)
         } catch (error) {
-            toast.error("Failed to fetch workouts")
+            toast.error("Failed to fetch meals")
             console.error(error)
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 navigate('/signin')
@@ -62,7 +62,7 @@ export default function WorkoutTracker() {
         }
     }
 
-    const handleAddWorkout = async (workoutData: Omit<WorkoutRequest, 'user'>) => {
+    const handleAddMeal = async (mealData: Omit<MealRequest, 'user'>) => {
         if (!user) {
             toast.error("User not available")
             return
@@ -70,16 +70,16 @@ export default function WorkoutTracker() {
 
         try {
             setIsLoading(true)
-            const workoutRequest: WorkoutRequest = {
-                ...workoutData,
-                user: { id: user.id } // Pass user object with id
+            const mealRequest: MealRequest = {
+                ...mealData,
+                user: { id: user.id }
             }
-            console.log('Sending workout request:', workoutRequest)
-            await WorkoutService.addWorkout(workoutRequest)
-            toast.success("Workout added successfully")
-            fetchWorkouts()
+            console.log('Sending meal request:', mealRequest)
+            await MealService.addMeal(mealRequest)
+            toast.success("Meal added successfully")
+            fetchMeals()
         } catch (error) {
-            toast.error("Failed to add workout")
+            toast.error("Failed to add meal")
             console.error(error)
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 navigate('/signin')
@@ -89,14 +89,14 @@ export default function WorkoutTracker() {
         }
     }
 
-    const handleDeleteWorkout = async (id: number) => {
+    const handleDeleteMeal = async (id: number) => {
         try {
             setIsLoading(true)
-            await WorkoutService.deleteWorkout(id)
-            toast.success("Workout deleted successfully")
-            fetchWorkouts()
+            await MealService.deleteMeal(id)
+            toast.success("Meal deleted successfully")
+            fetchMeals()
         } catch (error) {
-            toast.error("Failed to delete workout")
+            toast.error("Failed to delete meal")
             console.error(error)
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 navigate('/signin')
@@ -106,8 +106,8 @@ export default function WorkoutTracker() {
         }
     }
 
-    const filteredWorkouts = workouts.filter(workout =>
-        new Date(workout.date).toDateString() === selectedDate.toDateString()
+    const filteredMeals = meals.filter(meal =>
+        new Date(meal.date).toDateString() === selectedDate.toDateString()
     )
 
     if (!user) {
@@ -118,7 +118,7 @@ export default function WorkoutTracker() {
         <Card className="w-full max-w-4xl mx-auto bg-[#E9DDD4]">
             <CardHeader>
                 <CardTitle className="text-2xl font-bold text-center text-[#900020]">
-                    Workout Tracker
+                    Meal Tracker
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -126,14 +126,14 @@ export default function WorkoutTracker() {
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate}
                 />
-                <WorkoutForm
-                    addWorkout={handleAddWorkout}
+                <MealForm
+                    addMeal={handleAddMeal}
                     selectedDate={selectedDate}
                     isLoading={isLoading}
                 />
-                <WorkoutList
-                    workouts={filteredWorkouts}
-                    deleteWorkout={handleDeleteWorkout}
+                <MealList
+                    meals={filteredMeals}
+                    deleteMeal={handleDeleteMeal}
                     isLoading={isLoading}
                 />
             </CardContent>
