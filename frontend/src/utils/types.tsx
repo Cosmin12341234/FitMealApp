@@ -103,7 +103,9 @@ export type Meal = {
     calories:number;
     date:string;
     description:string;
-    user:User;
+    user: {
+        id: number;
+    };
 };
 
 export type MealRequest = {
@@ -112,7 +114,9 @@ export type MealRequest = {
     calories:number;
     date:string;
     description:string;
-    userId:number;
+    user: {
+        id: number;
+    };
 };
 
 export type MealResponse = {
