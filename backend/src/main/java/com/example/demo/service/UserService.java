@@ -63,7 +63,9 @@ public class UserService {
         user.setRole(userRequest.role());
         user.setUsername(userRequest.username());
         user.setEmail(userRequest.email());
-        user.setPassword(userRequest.password());
+        if (userRequest.password() != null && !userRequest.password().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(userRequest.password()));
+        }
         user.setFirstName(userRequest.firstName());
         user.setLastName(userRequest.lastName());
         user.setDob(userRequest.dob());
