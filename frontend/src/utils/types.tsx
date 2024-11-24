@@ -38,7 +38,6 @@ export type UserResponse = {
     role:Role
     username: string;
     email: string;
-    password: string;
     firstName: string;
     lastName: string;
     dob: string;
