@@ -44,7 +44,7 @@ public record UserResponse(
         double weight,
 
         @Schema(description = "The fitness goals of the user")
-        Goals goals,
+        Goals fitnessGoals,
 
         @Schema(description = "The activity level of the user")
         ActivityLevel activityLevel,
@@ -66,7 +66,7 @@ public record UserResponse(
             Gender gender,
             double height,
             double weight,
-            Goals goals,
+            Goals fitnessGoals,
             ActivityLevel activityLevel,
             List<WorkoutResponse> workouts,
             List<MealResponse> meals
@@ -81,7 +81,7 @@ public record UserResponse(
         this.gender = gender;
         this.height = height;
         this.weight = weight;
-        this.goals = goals;
+        this.fitnessGoals = fitnessGoals;
         this.activityLevel = activityLevel;
         this.workouts = workouts;
         this.meals = meals;
