@@ -26,20 +26,21 @@ import java.util.List;
 public class SecurityConfiguration {
 
     private final UserService userService;
-
+    private final PasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
 
-    public SecurityConfiguration(UserService userService) {
+    public SecurityConfiguration(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+    public InMemoryUserDetailsManager userDetailsService() {
         logger.info("Started userDetailsService");
         List<com.example.demo.model.User> users = userService.getAllUsers();
         List<UserDetails> userDetails = users.stream()
                 .map(user -> User.withUsername(user.getUsername())
-                        .password(passwordEncoder.encode(user.getPassword()))
+                        .password(user.getPassword()) // Password is already encoded from UserService
                         .roles("ADMIN", "USER")
                         .build())
                 .toList();
@@ -68,10 +69,5 @@ public class SecurityConfiguration {
                 }))
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
