@@ -25,9 +25,6 @@ public record UserResponse(
         @Schema(description = "The email of the user")
         String email,
 
-        @Schema(description = "The password of the user")
-        String password,
-
         @Schema(description = "The first name of the user")
         String firstName,
 
@@ -63,7 +60,6 @@ public record UserResponse(
             Role role,
             String username,
             String email,
-            String password,
             String firstName,
             String lastName,
             LocalDate dob,
@@ -79,7 +75,6 @@ public record UserResponse(
         this.role = role;
         this.username = username;
         this.email = email;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
