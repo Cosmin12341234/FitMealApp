@@ -41,7 +41,6 @@ export default function ProfilePage() {
     const fetchUserProfile = async () => {
         try {
             const userData = await UserService.getByUsername()
-            console.log('Fetched user data:', userData) // Debug the response
             setProfile(userData)
         } catch (error) {
             console.error('Error fetching profile:', error)
