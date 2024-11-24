@@ -6,6 +6,9 @@ import com.example.demo.dto.user.UserResponse;
 import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.exceptions.AuthException;
 import com.example.demo.model.User;
+import com.example.demo.model.enums.ActivityLevel;
+import com.example.demo.model.enums.Gender;
+import com.example.demo.model.enums.Goals;
 import com.example.demo.repository.UserRepo;
 import com.example.demo.utils.mapper.MealMapper;
 import com.example.demo.utils.mapper.UserMapper;
@@ -103,6 +106,43 @@ public class UserService {
     public List<MealResponse> getMealsByUsername(String username) {
         User user = findByUsername(username);
         return MealMapper.entityListToDto(user.getMeals());
+    }
+
+    public int getBMRById(Long id) {
+        User user = findById(id);
+        double bmr = 10*user.getWeight() + 6.25*user.getHeight() - 5*getAgeById(id);
+        if (user.getGender().equals(Gender.MALE)) {
+            bmr += 5;
+        } else {
+            bmr -= 161;
+        }
+        return (int) bmr;
+    }
+
+
+    public int getTDEEById(Long id) {
+        User user = findById(id);
+        double bmrUser = getBMRById(id);
+        if(user.getActivityLevel().equals(ActivityLevel.SEDENTARY)) {
+             bmrUser=bmrUser * 1.2;
+        } else if(user.getActivityLevel().equals(ActivityLevel.LIGHTLY_ACTIVE)) {
+            bmrUser=bmrUser * 1.375;
+        } else if(user.getActivityLevel().equals(ActivityLevel.MODERATELY_ACTIVE)) {
+            bmrUser=bmrUser * 1.55;
+        } else if(user.getActivityLevel().equals(ActivityLevel.VERY_ACTIVE)) {
+            bmrUser=bmrUser * 1.725;
+        } else {
+            bmrUser=bmrUser * 1.9;
+        }
+        if(user.getFitnessGoals().equals(Goals.LOSE))
+        {
+            bmrUser=bmrUser-500;
+        }
+        else if(user.getFitnessGoals().equals(Goals.GAIN))
+        {
+            bmrUser=bmrUser+500;
+        }
+        return (int) bmrUser;
     }
 
 }

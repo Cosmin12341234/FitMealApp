@@ -193,4 +193,19 @@ public class UserController {
         List<MealResponse> meals = userService.getMealsByUsername(username);
         return ResponseEntity.ok(meals);
     }
+
+    @Operation(summary = "Get the calories intake by id", description = "This endpoint is used to retrieve the calories intake for a user by id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Calories found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/calories/{userId}")
+    public ResponseEntity<Integer> getCaloriesById(@PathVariable("userId") Long userId) {
+        int calories = userService.getTDEEById(userId);
+        return ResponseEntity.ok(calories);
+    }
 }
