@@ -15,7 +15,6 @@ public final class UserMapper {
                 user.getRole(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getPassword(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getDob(),

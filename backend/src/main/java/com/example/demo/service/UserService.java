@@ -14,6 +14,7 @@ import com.example.demo.utils.mapper.MealMapper;
 import com.example.demo.utils.mapper.UserMapper;
 import com.example.demo.utils.mapper.WorkoutMapper;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,17 +25,30 @@ import java.util.List;
 public class UserService {
 
     private final UserRepo userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepository) {
+    public UserService(UserRepo userRepository, PasswordEncoder passwordEncoder) {  // Inject it
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
-    public UserResponse save(UserRequest userRequest){
-        User userToSave = new User(userRequest.role(),userRequest.username(),userRequest.email(),userRequest.password(),
-                userRequest.firstName(),userRequest.lastName(),userRequest.dob(),userRequest.gender(),userRequest.height(),userRequest.weight(),userRequest.fitnessGoals(),userRequest.activityLevel());
+    public UserResponse save(UserRequest userRequest) {
+        User userToSave = new User(
+                userRequest.role(),
+                userRequest.username(),
+                userRequest.email(),
+                passwordEncoder.encode(userRequest.password()),  // Encode password here
+                userRequest.firstName(),
+                userRequest.lastName(),
+                userRequest.dob(),
+                userRequest.gender(),
+                userRequest.height(),
+                userRequest.weight(),
+                userRequest.fitnessGoals(),
+                userRequest.activityLevel()
+        );
         return UserMapper.entityToDto(userRepository.save(userToSave));
-
     }
 
     @Transactional

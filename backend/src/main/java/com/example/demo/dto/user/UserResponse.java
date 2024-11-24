@@ -25,9 +25,6 @@ public record UserResponse(
         @Schema(description = "The email of the user")
         String email,
 
-        @Schema(description = "The password of the user")
-        String password,
-
         @Schema(description = "The first name of the user")
         String firstName,
 
@@ -47,7 +44,7 @@ public record UserResponse(
         double weight,
 
         @Schema(description = "The fitness goals of the user")
-        Goals goals,
+        Goals fitnessGoals,
 
         @Schema(description = "The activity level of the user")
         ActivityLevel activityLevel,
@@ -63,14 +60,13 @@ public record UserResponse(
             Role role,
             String username,
             String email,
-            String password,
             String firstName,
             String lastName,
             LocalDate dob,
             Gender gender,
             double height,
             double weight,
-            Goals goals,
+            Goals fitnessGoals,
             ActivityLevel activityLevel,
             List<WorkoutResponse> workouts,
             List<MealResponse> meals
@@ -79,14 +75,13 @@ public record UserResponse(
         this.role = role;
         this.username = username;
         this.email = email;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
         this.gender = gender;
         this.height = height;
         this.weight = weight;
-        this.goals = goals;
+        this.fitnessGoals = fitnessGoals;
         this.activityLevel = activityLevel;
         this.workouts = workouts;
         this.meals = meals;
