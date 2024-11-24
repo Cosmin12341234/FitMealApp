@@ -57,7 +57,7 @@ export default function ProfilePage() {
         try {
             const updatedUser: UserRequest = {
                 role: profile.role,
-                username: profile.username,
+                username: localStorage.getItem('username') as string,
                 email: profile.email,
                 password:localStorage.getItem('password') as string,
                 firstName: profile.firstName,
@@ -127,11 +127,6 @@ export default function ProfilePage() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <EditableField
-                            label="Username"
-                            value={profile.username}
-                            onUpdate={(value) => handleUpdate('username', value)}
-                        />
                         <EditableField
                             label="Email"
                             value={profile.email}
