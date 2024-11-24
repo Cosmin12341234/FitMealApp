@@ -5,6 +5,7 @@ import SignInPage from "@/features/auth/pages/SignInPage"
 import WorkoutPage from "@/features/workout/pages/WorkoutPage"
 import MealPage from "@/features/meal/pages/MealPage"
 import { ProtectedRoute } from "@/routes/ProtectedRoutes"
+import ProfilePage from "@/features/user/pages/ProfilePage.tsx";
 
 function App() {
     return (
@@ -25,6 +26,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <MealPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute>
+                            <ProfilePage />
                         </ProtectedRoute>
                     }
                 />
