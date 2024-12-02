@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -208,4 +209,59 @@ public class UserController {
         int calories = userService.getTDEEById(userId);
         return ResponseEntity.ok(calories);
     }
+
+    @Operation(summary = "Get the calories intake by username", description = "This endpoint is used to retrieve the calories intake for a user by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Calories found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/calories/{username}")
+    public ResponseEntity<Integer> getCaloriesByUsername(@PathVariable("username") String username) {
+        int calories = userService.getTDEEByUsername(username);
+        return ResponseEntity.ok(calories);
+    }
+
+    @Operation(summary = "Get the calories burned by date and username", description = "This endpoint is used to retrieve the calories bruned for a user in a period of time by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Calories found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/caloriesByDates/{username}")
+    public ResponseEntity<Integer> getCaloriesBurnedByDateByUsername(@PathVariable("username") String username,
+                                                                     @RequestParam("startDate") String startDate,
+                                                                     @RequestParam("endDate") String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        int calories = userService.getCaloriesBurnedByDatesByUsername(username, start, end);
+        return ResponseEntity.ok(calories);
+
+    }
+
+    @Operation(summary = "Get the calories consumed by date and username", description = "This endpoint is used to retrieve the calories consumed for a user in a date by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Calories found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/caloriesConsumed/{username}")
+    public ResponseEntity<Integer> getCaloriesBurnedByDateByUsername(@PathVariable("username") String username,
+                                                                     @RequestParam("startDate") String date) {
+        LocalDate d = LocalDate.parse(date);
+        int calories = userService.getCaloriesConsumedByDateByUsername(username, d);
+        return ResponseEntity.ok(calories);
+
+    }
+
+
 }

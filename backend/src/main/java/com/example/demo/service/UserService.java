@@ -5,7 +5,9 @@ import com.example.demo.dto.user.UserRequest;
 import com.example.demo.dto.user.UserResponse;
 import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.exceptions.AuthException;
+import com.example.demo.model.Meal;
 import com.example.demo.model.User;
+import com.example.demo.model.Workout;
 import com.example.demo.model.enums.ActivityLevel;
 import com.example.demo.model.enums.Gender;
 import com.example.demo.model.enums.Goals;
@@ -161,4 +163,35 @@ public class UserService {
         return (int) bmrUser;
     }
 
+    public int getTDEEByUsername(String username){
+        User user = findByUsername(username);
+        int tdeeUser = getTDEEById(user.getId());
+        return tdeeUser;
+
+    }
+
+    public int getCaloriesBurnedByDatesByUsername(String username, LocalDate startDate, LocalDate endDate) {
+        User user = findByUsername(username);
+        List<Workout> workouts = user.getWorkouts();
+        int caloriesBurned = 0;
+        for (Workout workout : workouts) {
+            if ((workout.getDate().isEqual(startDate) || workout.getDate().isAfter(startDate)) &&
+                    (workout.getDate().isEqual(endDate) || workout.getDate().isBefore(endDate))) {
+                caloriesBurned += workout.getCaloriesBurned();
+            }
+        }
+        return caloriesBurned;
+    }
+
+    public int getCaloriesConsumedByDateByUsername(String username, LocalDate date) {
+        User user = findByUsername(username);
+        List<Meal> meals = user.getMeals();
+        int caloriesConsumed = 0;
+        for (Meal meal : meals) {
+            if (meal.getDate().isEqual(date)) {
+                caloriesConsumed += meal.getCalories();
+            }
+        }
+        return caloriesConsumed;
+    }
 }
