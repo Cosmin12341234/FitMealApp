@@ -70,11 +70,11 @@ export default function HomePage() {
         const fetchCaloriesBurned = async () => {
             try {
                 const dateStr = selectedDate.toISOString().split('T')[0]
-                const caloriesBurned = await WorkoutService.getCaloriesBurnedByDatesByUsername(
+                const caloriesBurnedMap = await WorkoutService.getCaloriesBurnedByDatesByUsername(
                     dateStr,
                     dateStr
                 )
-                setCurrentCaloriesBurned(caloriesBurned || 0)
+                setCurrentCaloriesBurned(caloriesBurnedMap[dateStr] || 0)
             } catch (error) {
                 console.error('Failed to fetch calories burned:', error)
                 toast.error('Failed to load workout data')
@@ -91,8 +91,11 @@ export default function HomePage() {
         const fetchCaloriesConsumed = async () => {
             try {
                 const dateStr = selectedDate.toISOString().split('T')[0]
-                const caloriesConsumed = await MealService.getCaloriesByDateByUsername(dateStr)
-                setCurrentCaloriesConsumed(caloriesConsumed || 0)
+                const caloriesConsumedMap = await MealService.getCaloriesConsumedByDates(
+                    dateStr,
+                    dateStr
+                )
+                setCurrentCaloriesConsumed(caloriesConsumedMap[dateStr] || 0)
             } catch (error) {
                 console.error('Failed to fetch calories consumed:', error)
                 toast.error('Failed to load meal data')
@@ -113,22 +116,26 @@ export default function HomePage() {
                 const startDate = new Date(selectedDate)
                 startDate.setDate(startDate.getDate() - 6)
 
-                const weekCaloriesBurned = await WorkoutService.getCaloriesBurnedByDatesByUsername(
-                    startDate.toISOString().split('T')[0],
-                    endDate.toISOString().split('T')[0]
-                )
+                const startDateStr = startDate.toISOString().split('T')[0]
+                const endDateStr = endDate.toISOString().split('T')[0]
+
+                const [caloriesBurnedMap, caloriesConsumedMap] = await Promise.all([
+                    WorkoutService.getCaloriesBurnedByDatesByUsername(startDateStr, endDateStr),
+                    MealService.getCaloriesConsumedByDates(startDateStr, endDateStr)
+                ])
 
                 const newDailyData: DailyData[] = []
-                for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-                    const dateStr = d.toISOString().split('T')[0]
-                    const caloriesConsumed = await MealService.getCaloriesByDateByUsername(dateStr)
+                const currentDate = new Date(startDate)
 
+                while (currentDate <= endDate) {
+                    const dateStr = currentDate.toISOString().split('T')[0]
                     newDailyData.push({
                         date: dateStr,
-                        caloriesBurned: weekCaloriesBurned[dateStr] || 0,
-                        caloriesConsumed: caloriesConsumed || 0,
+                        caloriesBurned: caloriesBurnedMap[dateStr] ?? 0,
+                        caloriesConsumed: caloriesConsumedMap[dateStr] ?? 0,
                         weight: currentWeight
                     })
+                    currentDate.setDate(currentDate.getDate() + 1)
                 }
 
                 setDailyData(newDailyData)
@@ -242,13 +249,13 @@ export default function HomePage() {
                                         {currentDayData.weight} kg
                                     </span>
                                 </div>
-                                <QuickActions />
+                                <QuickActions/>
                             </CardContent>
                         </Card>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <ActivityChart data={dailyData} />
-                            <MealPlan />
+                            <ActivityChart data={dailyData}/>
+                            <MealPlan selectedDate={selectedDate}/>
                         </div>
                     </CardContent>
                 </Card>
