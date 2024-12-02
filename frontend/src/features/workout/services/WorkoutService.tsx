@@ -62,15 +62,14 @@ const getWorkoutsByUsername=()=>{
         })
 }
 
-const getCaloriesBurnedByDatesByUsername = (startDate: string, endDate: string) => {
+type CaloriesMap = {
+    [date: string]: number
+}
+
+const getCaloriesBurnedByDatesByUsername = (startDate: string, endDate: string): Promise<CaloriesMap> => {
     const username = localStorage.getItem('username');
     const password = localStorage.getItem('password');
-    return handleGetCaloriesBurnedByDatesByUsername(startDate, endDate, username!, password!)
-        .then(response => response)
-        .catch(err => {
-            console.error('Error fetching workouts last week by username:', err);
-            throw err;
-        });
+    return handleGetCaloriesBurnedByDatesByUsername(startDate, endDate, username!, password!);
 };
 
 export const WorkoutService={

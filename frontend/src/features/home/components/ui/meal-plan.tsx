@@ -13,7 +13,11 @@ type Meal = {
     date: string
 }
 
-export function MealPlan() {
+interface MealPlanProps {
+    selectedDate: Date
+}
+
+export function MealPlan({ selectedDate }: MealPlanProps) {
     const [meals, setMeals] = useState<Meal[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
@@ -23,11 +27,11 @@ export function MealPlan() {
             try {
                 setIsLoading(true)
                 const response = await MealService.getMealsByUsername()
-                const today = new Date().toISOString().split('T')[0]
-                const todaysMeals = response.filter((meal: Meal) =>
-                    meal.date === today
+                const currentDateStr = selectedDate.toISOString().split('T')[0]
+                const currentDateMeals = response.filter((meal: Meal) =>
+                    meal.date === currentDateStr
                 )
-                setMeals(todaysMeals)
+                setMeals(currentDateMeals)
             } catch (error) {
                 console.error('Failed to fetch meals:', error)
                 toast.error('Failed to load meal plan')
@@ -40,7 +44,7 @@ export function MealPlan() {
         }
 
         fetchMeals()
-    }, [navigate])
+    }, [navigate, selectedDate])
 
     if (isLoading) {
         return <div>Loading meals...</div>
@@ -49,11 +53,17 @@ export function MealPlan() {
     return (
         <Card className="bg-[#E9DDD4]">
             <CardHeader>
-                <CardTitle className="text-xl font-semibold text-[#900020]">Today's Meal Plan</CardTitle>
+                <CardTitle className="text-xl font-semibold text-[#900020]">
+                    Meals for {selectedDate.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                })}
+                </CardTitle>
             </CardHeader>
             <CardContent>
                 {meals.length === 0 ? (
-                    <p className="text-center text-[#000000]">No meals planned for today</p>
+                    <p className="text-center text-[#000000]">No meals planned for this date</p>
                 ) : (
                     <ul className="space-y-2">
                         {meals.map((meal) => (

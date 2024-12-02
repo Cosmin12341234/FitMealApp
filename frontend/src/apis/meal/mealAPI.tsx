@@ -82,3 +82,24 @@ export const handleGetCaloriesByDateByUsername=(date:string,username:string,pass
             throw err;
         });
 }
+
+type CaloriesMap = {
+    [date: string]: number
+}
+
+export const handleGetCaloriesConsumedByDatesByUsername = (
+    startDate: string,
+    endDate: string,
+    username: string,
+    password: string
+): Promise<CaloriesMap> => {
+    return axios.get(`${usersUrl}/caloriesConsumedByDates/${username}`, {
+        ...secureConfig(username, password),
+        params: { startDate, endDate }
+    })
+        .then(response => response.data)
+        .catch(err => {
+            console.error('Error getting calories filtered by date by username:', err);
+            throw err;
+        });
+};

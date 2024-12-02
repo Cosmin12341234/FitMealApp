@@ -1,6 +1,6 @@
 import {
     handleAddMeal,
-    handleDeleteMeal, handleGetCaloriesByDateByUsername,
+    handleDeleteMeal, handleGetCaloriesByDateByUsername, handleGetCaloriesConsumedByDatesByUsername,
     handleGetMealById,
     handleGetMeals, handleGetMealsByUsername,
     handleUpdateMeal
@@ -62,6 +62,17 @@ const getCaloriesByDateByUsername=(date:string)=>{
         .then((response)=>{return response;
         })
 }
+
+type CaloriesMap = {
+    [date: string]: number
+}
+
+const getCaloriesConsumedByDates = (startDate: string, endDate: string): Promise<CaloriesMap> => {
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    return handleGetCaloriesConsumedByDatesByUsername(startDate, endDate, username!, password!);
+};
+
 export const MealService={
     getMeals,
     addMeal,
@@ -69,5 +80,6 @@ export const MealService={
     updateMeal,
     getMealById,
     getMealsByUsername,
-    getCaloriesByDateByUsername
+    getCaloriesByDateByUsername,
+    getCaloriesConsumedByDates
 }
