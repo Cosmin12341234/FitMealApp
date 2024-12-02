@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -170,17 +172,50 @@ public class UserService {
 
     }
 
-    public int getCaloriesBurnedByDatesByUsername(String username, LocalDate startDate, LocalDate endDate) {
+    public Map<String,Integer> getCaloriesBurnedByDatesByUsername(String username,LocalDate startDate, LocalDate endDate){
         User user = findByUsername(username);
         List<Workout> workouts = user.getWorkouts();
-        int caloriesBurned = 0;
-        for (Workout workout : workouts) {
-            if ((workout.getDate().isEqual(startDate) || workout.getDate().isAfter(startDate)) &&
-                    (workout.getDate().isEqual(endDate) || workout.getDate().isBefore(endDate))) {
-                caloriesBurned += workout.getCaloriesBurned();
+        Map<String, Integer> caloriesBurnedByDate = new HashMap<>();
+
+        LocalDate currentDate = startDate;
+        while (!currentDate.isAfter(endDate)){
+            caloriesBurnedByDate.put(currentDate.toString(),0);
+            currentDate = currentDate.plusDays(1);
+        }
+
+        for(Workout workout:workouts){
+            LocalDate workoutDate = workout.getDate();
+            if(workoutDate.isEqual(startDate) || workoutDate.isAfter(startDate) && (workoutDate.isEqual(endDate) || workoutDate.isBefore(endDate))){
+                String dateKey = workoutDate.toString();
+                int currentCalories = caloriesBurnedByDate.getOrDefault(dateKey, 0);
+                int workoutCalories = (int)workout.getCaloriesBurned();
+                caloriesBurnedByDate.put(dateKey, currentCalories + workoutCalories);
             }
         }
-        return caloriesBurned;
+        return caloriesBurnedByDate;
+    }
+
+    public Map<String,Integer> getCaloriesConsumedByDatesByUsername(String username,LocalDate startDate, LocalDate endDate){
+        User user = findByUsername(username);
+        List<Meal> meals = user.getMeals();
+        Map<String, Integer> caloriesConsumedByDate = new HashMap<>();
+
+        LocalDate currentDate = startDate;
+        while (!currentDate.isAfter(endDate)){
+            caloriesConsumedByDate.put(currentDate.toString(),0);
+            currentDate = currentDate.plusDays(1);
+        }
+
+        for(Meal meal:meals){
+            LocalDate mealDate = meal.getDate();
+            if(mealDate.isEqual(startDate) || mealDate.isAfter(startDate) && (mealDate.isEqual(endDate) || mealDate.isBefore(endDate))){
+                String dateKey = mealDate.toString();
+                int currentCalories = caloriesConsumedByDate.getOrDefault(dateKey, 0);
+                int mealCalories = (int)meal.getCalories();
+                caloriesConsumedByDate.put(dateKey, currentCalories + mealCalories);
+            }
+        }
+        return caloriesConsumedByDate;
     }
 
     public int getCaloriesConsumedByDateByUsername(String username, LocalDate date) {
