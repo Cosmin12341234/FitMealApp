@@ -253,7 +253,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseDto.class))})
     })
-    @GetMapping("/caloriesByDates/{username}")
+    @GetMapping("/caloriesBurnedByDates/{username}")
     public ResponseEntity<Map<String,Integer>> getCaloriesBurnedByDateByUsername(@PathVariable("username") String username,
                                                                                  @RequestParam("startDate") String startDate,
                                                                                  @RequestParam("endDate") String endDate) {
@@ -273,7 +273,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseDto.class))})
     })
-    @GetMapping("/caloriesByDates/{username}")
+    @GetMapping("/caloriesConsumedByDates/{username}")
     public ResponseEntity<Map<String,Integer>> getCaloriesConsumedByDatesByUsername(@PathVariable("username") String username,
                                                                                  @RequestParam("startDate") String startDate,
                                                                                  @RequestParam("endDate") String endDate) {
