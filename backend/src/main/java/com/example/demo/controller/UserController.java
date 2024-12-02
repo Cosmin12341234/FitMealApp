@@ -204,7 +204,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseDto.class))})
     })
-    @GetMapping("/calories/{userId}")
+    @GetMapping("/caloriesById/{userId}")
     public ResponseEntity<Integer> getCaloriesById(@PathVariable("userId") Long userId) {
         int calories = userService.getTDEEById(userId);
         return ResponseEntity.ok(calories);
@@ -219,7 +219,7 @@ public class UserController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseDto.class))})
     })
-    @GetMapping("/calories/{username}")
+    @GetMapping("/caloriesByUsername/{username}")
     public ResponseEntity<Integer> getCaloriesByUsername(@PathVariable("username") String username) {
         int calories = userService.getTDEEByUsername(username);
         return ResponseEntity.ok(calories);
@@ -256,7 +256,7 @@ public class UserController {
     })
     @GetMapping("/caloriesConsumed/{username}")
     public ResponseEntity<Integer> getCaloriesBurnedByDateByUsername(@PathVariable("username") String username,
-                                                                     @RequestParam("startDate") String date) {
+                                                                     @RequestParam("date") String date) {
         LocalDate d = LocalDate.parse(date);
         int calories = userService.getCaloriesConsumedByDateByUsername(username, d);
         return ResponseEntity.ok(calories);
