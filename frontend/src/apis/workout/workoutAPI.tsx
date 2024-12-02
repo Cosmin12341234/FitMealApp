@@ -68,3 +68,17 @@ export const handleWorkoutsByUsername=(username:string,password:string)=>{
         throw err;
     });
 }
+
+export const handleGetCaloriesBurnedByDatesByUsername = (startDate: string, endDate: string, username: string, password: string) => {
+    return axios.get(`${usersUrl}/caloriesByDates/${username}`, {
+        ...secureConfig(username, password),
+        params: { startDate, endDate }
+    })
+        .then(response => {
+            return response.data
+        })
+        .catch(err => {
+            console.error('Error getting calories filtered by date by username:', err);
+            throw err;
+        });
+};

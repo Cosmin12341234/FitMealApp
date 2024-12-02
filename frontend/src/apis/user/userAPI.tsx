@@ -57,3 +57,14 @@ export const handleGetAgeByUserId=(id:number,username:string,password:string)=>{
             throw err;
         });
 }
+
+export const handleGetTDEEByUsername=(username:string,password:string)=>{
+    return axios.get(`${usersUrl}/calories/${username}`,secureConfig(username,password))
+        .then(response=>{
+            return response.data;
+        })
+        .catch((err)=>{
+            console.error('Error getting tdee',err);
+            throw err;
+        });
+}

@@ -1,7 +1,7 @@
 import {
     handleDeleteUser,
     handleGetAgeByUserId,
-    handleGetAllUsers,
+    handleGetAllUsers, handleGetTDEEByUsername,
     handleGetUserByUsername,
     handleUpdateUser
 } from "@/apis/user/userAPI.tsx";
@@ -51,10 +51,21 @@ const getAgeByUserId=(id:number)=>{
             return response;
         })
 }
+
+const getTDEEByUsername=()=>{
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    return handleGetTDEEByUsername(username!,password!)
+        .then((response)=>{
+            return response;
+        })
+}
+
 export const UserService={
     getUsers,
     getByUsername,
     updateUser,
     deleteUser,
-    getAgeByUserId
+    getAgeByUserId,
+    getTDEEByUsername
 }

@@ -6,6 +6,7 @@ import WorkoutPage from "@/features/workout/pages/WorkoutPage"
 import MealPage from "@/features/meal/pages/MealPage"
 import { ProtectedRoute } from "@/routes/ProtectedRoutes"
 import ProfilePage from "@/features/user/pages/ProfilePage.tsx";
+import HomePage from "@/features/home/pages/HomePage.tsx";
 
 function App() {
     return (
@@ -34,6 +35,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <ProfilePage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/home"
+                    element={
+                        <ProtectedRoute>
+                            <HomePage />
                         </ProtectedRoute>
                     }
                 />
