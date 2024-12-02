@@ -1,6 +1,6 @@
 import {
     handleAddMeal,
-    handleDeleteMeal,
+    handleDeleteMeal, handleGetCaloriesByDateByUsername,
     handleGetMealById,
     handleGetMeals, handleGetMealsByUsername,
     handleUpdateMeal
@@ -54,11 +54,20 @@ const getMealsByUsername=()=>{
         .then((response)=>{return response;
         })
 }
+
+const getCaloriesByDateByUsername=(date:string)=>{
+    const username=localStorage.getItem('username');
+    const password=localStorage.getItem('password');
+    return handleGetCaloriesByDateByUsername(date,username!,password!)
+        .then((response)=>{return response;
+        })
+}
 export const MealService={
     getMeals,
     addMeal,
     deleteMeal,
     updateMeal,
     getMealById,
-    getMealsByUsername
+    getMealsByUsername,
+    getCaloriesByDateByUsername
 }

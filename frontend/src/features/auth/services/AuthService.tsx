@@ -28,7 +28,7 @@ const login = (data: LoginRequest) => {
         .then((res) => {
             localStorage.setItem('username', data.username);
             localStorage.setItem('password', data.password);
-            history.pushState({}, '', '/workout');
+            history.pushState({}, '', '/home');
             location.reload();
             return {status: res.status, message: loginSuccess};
         })

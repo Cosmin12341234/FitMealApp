@@ -1,6 +1,8 @@
 import {
     handleAddWorkout,
-    handleDeleteWorkout, handleGetWorkout,
+    handleDeleteWorkout,
+    handleGetCaloriesBurnedByDatesByUsername,
+    handleGetWorkout,
     handleGetWorkouts,
     handleUpdateWorkout, handleWorkoutsByUsername
 } from "@/apis/workout/workoutAPI.tsx";
@@ -60,11 +62,23 @@ const getWorkoutsByUsername=()=>{
         })
 }
 
+const getCaloriesBurnedByDatesByUsername = (startDate: string, endDate: string) => {
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    return handleGetCaloriesBurnedByDatesByUsername(startDate, endDate, username!, password!)
+        .then(response => response)
+        .catch(err => {
+            console.error('Error fetching workouts last week by username:', err);
+            throw err;
+        });
+};
+
 export const WorkoutService={
     getWorkouts,
     addWorkout,
     deleteWorkout,
     updateWorkout,
     getWorkout,
-    getWorkoutsByUsername
+    getWorkoutsByUsername,
+    getCaloriesBurnedByDatesByUsername
 }
