@@ -70,15 +70,15 @@ export const handleGetMealsByUsername=(username:string,password:string)=>{
 }
 
 export const handleGetCaloriesByDateByUsername=(date:string,username:string,password:string)=>{
-    return axios.get(`${mealsUrl}/calories/${username}`,{
-    ...secureConfig(username,password),
-    params:{date}
+    return axios.get(`${usersUrl}/caloriesConsumed/${username}`,{
+        ...secureConfig(username,password),
+        params:{date}
     })
-    .then(response=>{
-        return response.data;
-    })
-    .catch((err)=>{
-        console.error('Error getting calories',err);
-        throw err;
-    });
+        .then(response=>{
+            return response.data;
+        })
+        .catch((err)=>{
+            console.error('Error getting calories',err);
+            throw err;
+        });
 }
