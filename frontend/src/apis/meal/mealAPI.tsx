@@ -70,7 +70,7 @@ export const handleGetMealsByUsername=(username:string,password:string)=>{
 }
 
 export const handleGetCaloriesByDateByUsername=(date:string,username:string,password:string)=>{
-    return axios.get(`${mealsUrl}/calories/${username}`,{
+    return axios.get(`${usersUrl}/caloriesConsumed/${username}`,{
     ...secureConfig(username,password),
     params:{date}
     })
