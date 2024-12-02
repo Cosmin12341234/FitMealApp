@@ -59,7 +59,7 @@ export const handleGetAgeByUserId=(id:number,username:string,password:string)=>{
 }
 
 export const handleGetTDEEByUsername=(username:string,password:string)=>{
-    return axios.get(`${usersUrl}/calories/${username}`,secureConfig(username,password))
+    return axios.get(`${usersUrl}/caloriesByUsername/${username}`,secureConfig(username,password))
         .then(response=>{
             return response.data;
         })

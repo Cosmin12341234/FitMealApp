@@ -32,7 +32,6 @@ export default function HomePage() {
     const burnGoal = 500
     const navigate = useNavigate()
 
-    // Fetch TDEE
     useEffect(() => {
         const fetchTDEE = async () => {
             try {
@@ -49,7 +48,6 @@ export default function HomePage() {
         fetchTDEE()
     }, [navigate])
 
-    // Fetch user data (weight)
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -67,7 +65,6 @@ export default function HomePage() {
         fetchUserData()
     }, [navigate])
 
-    // Fetch calories burned for selected date
     useEffect(() => {
         const fetchCaloriesBurned = async () => {
             try {
@@ -89,7 +86,6 @@ export default function HomePage() {
         fetchCaloriesBurned()
     }, [selectedDate, navigate])
 
-    // Fetch calories consumed for selected date
     useEffect(() => {
         const fetchCaloriesConsumed = async () => {
             try {
