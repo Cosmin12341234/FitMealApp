@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Validated
@@ -225,26 +226,6 @@ public class UserController {
         return ResponseEntity.ok(calories);
     }
 
-    @Operation(summary = "Get the calories burned by date and username", description = "This endpoint is used to retrieve the calories bruned for a user in a period of time by username.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Calories found successfully",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseDto.class))}),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseDto.class))})
-    })
-    @GetMapping("/caloriesByDates/{username}")
-    public ResponseEntity<Integer> getCaloriesBurnedByDateByUsername(@PathVariable("username") String username,
-                                                                     @RequestParam("startDate") String startDate,
-                                                                     @RequestParam("endDate") String endDate) {
-        LocalDate start = LocalDate.parse(startDate);
-        LocalDate end = LocalDate.parse(endDate);
-        int calories = userService.getCaloriesBurnedByDatesByUsername(username, start, end);
-        return ResponseEntity.ok(calories);
-
-    }
-
     @Operation(summary = "Get the calories consumed by date and username", description = "This endpoint is used to retrieve the calories consumed for a user in a date by username.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Calories found successfully",
@@ -260,6 +241,46 @@ public class UserController {
         LocalDate d = LocalDate.parse(date);
         int calories = userService.getCaloriesConsumedByDateByUsername(username, d);
         return ResponseEntity.ok(calories);
+
+    }
+
+    @Operation(summary = "Get the calories burned in a interval of dates and username", description = "This endpoint is used to retrieve the calories bruned for a user in a period of time by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Calories found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/caloriesByDates/{username}")
+    public ResponseEntity<Map<String,Integer>> getCaloriesBurnedByDateByUsername(@PathVariable("username") String username,
+                                                                                 @RequestParam("startDate") String startDate,
+                                                                                 @RequestParam("endDate") String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        Map<String,Integer> caloriesBurnedByDate = userService.getCaloriesBurnedByDatesByUsername(username, start, end);
+        return ResponseEntity.ok(caloriesBurnedByDate);
+
+    }
+
+    @Operation(summary = "Get the calories consumed in a interval of dates and username", description = "This endpoint is used to retrieve the calories consumed for a user in a period of time by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Calories found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/caloriesByDates/{username}")
+    public ResponseEntity<Map<String,Integer>> getCaloriesConsumedByDatesByUsername(@PathVariable("username") String username,
+                                                                                 @RequestParam("startDate") String startDate,
+                                                                                 @RequestParam("endDate") String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        Map<String,Integer> caloriesConsumedByDate = userService.getCaloriesConsumedByDatesByUsername(username, start, end);
+        return ResponseEntity.ok(caloriesConsumedByDate);
 
     }
 
