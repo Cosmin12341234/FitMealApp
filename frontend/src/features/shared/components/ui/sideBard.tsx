@@ -9,7 +9,7 @@ type MenuItem = {
 }
 
 const menuItems: MenuItem[] = [
-    { icon: HomeIcon, label: 'Home', href: '/' },
+    { icon: HomeIcon, label: 'Home', href: '/home' },
     { icon: DumbbellIcon, label: 'Workouts', href: '/workout' },
     { icon: UtensilsIcon, label: 'Meals', href: '/meals' },
     { icon: UserIcon, label: 'Profile', href: '/profile' },
