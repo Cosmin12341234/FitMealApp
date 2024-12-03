@@ -1,0 +1,67 @@
+package com.example.demo.model.enums;
+
+public enum Muscle {
+    // Arms
+    BICEPS,
+    LONG_HEAD_BICEP,
+    SHORT_HEAD_BICEP,
+    TRICEPS,
+    LONG_HEAD_TRICEP,
+    LATERAL_HEAD_TRICEPS,
+    MEDIAL_HEAD_TRICEPS,
+    FOREARMS,
+    WRIST_EXTENSORS,
+    WRIST_FLEXORS,
+
+    // Shoulders
+    SHOULDERS,
+    LATERAL_DELTOID,
+    ANTERIOR_DELTOID,
+    POSTERIOR_DELTOID,
+    FRONT_SHOULDERS,
+    REAR_SHOULDERS,
+
+    // Back
+    TRAPS,
+    UPPER_TRAPS,
+    LOWER_TRAPS,
+    TRAPS_MID_BACK,
+    LOWER_BACK,
+    LATS,
+
+    // Chest
+    CHEST,
+    UPPER_PECTORALIS,
+    MID_AND_LOWER_CHEST,
+
+    // Core
+    ABDOMINALS,
+    LOWER_ABDOMINALS,
+    UPPER_ABDOMINALS,
+    OBLIQUES,
+
+    // Legs
+    CALVES,
+    TIBIALIS,
+    SOLEUS,
+    GASTROCNEMIUS,
+    QUADS,
+    INNER_THIGH,
+    INNER_QUADRICEPS,
+    OUTER_QUADRICEP,
+    RECTUS_FEMORIS,
+    HAMSTRINGS,
+    MEDIAL_HAMSTRINGS,
+    LATERAL_HAMSTRINGS,
+
+    // Glutes
+    GLUTES,
+    GLUTEUS_MEDIUS,
+    GLUTEUS_MAXIMUS,
+
+    // Other
+    HANDS,
+    FEET,
+    NECK,
+    GROIN
+}
