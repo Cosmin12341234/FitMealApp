@@ -108,6 +108,3 @@ Administrative interface for managing user accounts and exercise database.
    - Add workouts and meals to your tracker.
    - Generate personalized workout routines.
    - Manage your profile and settings.
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
