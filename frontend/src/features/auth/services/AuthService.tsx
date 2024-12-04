@@ -35,7 +35,7 @@ const login = (data: LoginRequest) => {
         .catch((err) => {
             localStorage.removeItem('username');
             localStorage.removeItem('password');
-            const status = err.response ? err.response.status : 500; // Default to 500 (Internal Server Error) if undefined
+            const status = err.response ? err.response.status : 500;
             const message = err.response ? loginFail + err.response.data : loginFail + " Unknown error occurred";
 
             return {status, message};

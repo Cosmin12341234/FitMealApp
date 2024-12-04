@@ -13,7 +13,7 @@ type WorkoutListProps = {
 export function WorkoutList({ workouts, deleteWorkout, isLoading }: WorkoutListProps) {
     return (
         <div>
-            <h2 className="text-xl font-semibold mb-4">Workouts</h2>
+            <h2 className="text-xl font-semibold mb-4 text-[#900020]">Workouts</h2>
             {workouts.length === 0 ? (
                 <p className="text-center text-[#000000]">No workouts for this day.</p>
             ) : (
