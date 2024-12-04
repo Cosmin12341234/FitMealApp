@@ -7,6 +7,7 @@ import MealPage from "@/features/meal/pages/MealPage"
 import { ProtectedRoute } from "@/routes/ProtectedRoutes"
 import ProfilePage from "@/features/user/pages/ProfilePage.tsx";
 import HomePage from "@/features/home/pages/HomePage.tsx";
+import AdminPage from "@/features/admin/pages/AdminPage.tsx";
 
 function App() {
     return (
@@ -43,6 +44,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <HomePage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <AdminPage />
                         </ProtectedRoute>
                     }
                 />
