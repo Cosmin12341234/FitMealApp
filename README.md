@@ -1,9 +1,7 @@
 # NenyV(itality) - Fitness Progress Tracker
 
 ## Overview
-A full-stack fitness application that helps users track their fitness journey, including workout progress and meal preparation. 
-
-Through an intuitive interface, users can add and remove meals and workouts while monitoring their progress. The app features a workout generator that creates personalized routines based on user preferences, utilizing exercises from a database managed by the admin. Additionally, it includes an admin interface for managing user accounts and the exercise database.
+A full-stack fitness application that helps users track their fitness journey, including workout progress and meal preparation. Through an intuitive interface, users can add and remove meals and workouts while monitoring their progress. The app features a workout generator that creates personalized routines based on user preferences, utilizing exercises from a database managed by the admin. Additionally, it includes an admin interface for managing user accounts and the exercise database.
 
 ## Features
 
