@@ -3,10 +3,12 @@ package com.example.demo.model;
 import com.example.demo.model.enums.Difficulty;
 import com.example.demo.model.enums.Equipment;
 import com.example.demo.model.enums.Muscle;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -51,6 +53,11 @@ public class Exercise {
     @Column(nullable = false, length = 256)
     @Schema(description = "The instructions of the exercise")
     private String instructions;
+
+    @ManyToMany(mappedBy = "exercises", fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Schema(description = "The workout days this exercise belongs to")
+    @JsonIgnore
+    private List<WorkoutDay> workoutDays = new ArrayList<>();
 
     public Exercise(String name, Muscle primaryMuscle, List<Muscle> secondaryMuscles, Equipment equipment, Difficulty difficulty, String instructions) {
         this.name = name;

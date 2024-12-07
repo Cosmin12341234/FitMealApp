@@ -85,6 +85,10 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Meal> meals;
 
+    @Schema(description = "The workout plans of the user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkoutPlan> workoutPlans;
+
     public User(Role role,String username, String email, String password, String firstName, String lastName, LocalDate dob, Gender gender, double height, double weight, Goals fitnessGoals, ActivityLevel activityLevel) {
         this.role=role;
         this.username = username;

@@ -4,10 +4,11 @@ import com.example.demo.dto.meal.MealResponse;
 import com.example.demo.dto.workout.WorkoutResponse;
 import com.example.demo.model.Meal;
 import com.example.demo.model.Workout;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Component
 public final class MealMapper {
 
     public static MealResponse entityToDto(Meal meal) {
