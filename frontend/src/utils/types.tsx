@@ -55,15 +55,6 @@ export type LoginRequest = {
     username: string;
     password: string;
 }
-export enum Role { USER = "USER", ADMIN = "ADMIN" }
-
-export enum Gender { MALE = "MALE", FEMALE = "FEMALE" }
-
-export enum Goals { LOSE = "LOSE", GAIN = "GAIN", MAINTAIN = "MAINTAIN" }
-
-export enum ActivityLevel { SEDENTARY = "SEDENTARY", LIGHTLY_ACTIVE = "LIGHTLY_ACTIVE", MODERATELY_ACTIVE = "MODERATELY_ACTIVE", VERY_ACTIVE = "VERY_ACTIVE", SUPER_ACTIVE = "SUPER_ACTIVE" }
-
-export enum Type {BREAKFAST = "BREAKFAST", LUNCH = "LUNCH", DINNER = "DINNER", SNACK = "SNACK", DESSERT = "DESSERT", DRINK = "DRINK", OTHER = "OTHER"}
 
 export type Workout = {
     id: number;
@@ -156,6 +147,68 @@ export type ExerciseResponse = {
     difficulty:Difficulty;
     instructions:string;
 };
+
+export type WorkoutPlan={
+    id:number;
+    user:{
+        id:number
+    };
+    name:string;
+    frequency:number;
+    experience:Difficulty;
+    goals:WorkoutGoals;
+    gender:Gender;
+    dateCreated:string;
+    equipment:Equipment[];
+    workoutDays:WorkoutDay[];
+}
+
+export type WorkoutPlanRequest={
+    user:{
+        id:number
+    };
+    name:string;
+    frequency:number;
+    experience:Difficulty;
+    goals:WorkoutGoals;
+    gender:Gender;
+    equipment:Equipment[];
+};
+
+export type WorkoutPlanResponse={
+    id:number;
+    name:string;
+    frequency:number;
+    dateCreated:string;
+    workoutDays:WorkoutDayResponse[];
+};
+
+export type WorkoutDay={
+    id:number
+    dayName:string;
+    exercises:Exercise[];
+    workoutPlan:{
+        id:number
+    };
+};
+
+export type WorkoutDayResponse={
+    id:number
+    dayName:string;
+    exercises:ExerciseResponse[];
+};
+
+export enum WorkoutGoals { GAIN_STRENGTH = "GAIN_STRENGTH", GAIN_MUSCLE = "GAIN_MUSCLE"}
+
+export enum Role { USER = "USER", ADMIN = "ADMIN" }
+
+export enum Gender { MALE = "MALE", FEMALE = "FEMALE" }
+
+export enum Goals { LOSE = "LOSE", GAIN = "GAIN", MAINTAIN = "MAINTAIN" }
+
+export enum ActivityLevel { SEDENTARY = "SEDENTARY", LIGHTLY_ACTIVE = "LIGHTLY_ACTIVE", MODERATELY_ACTIVE = "MODERATELY_ACTIVE", VERY_ACTIVE = "VERY_ACTIVE", SUPER_ACTIVE = "SUPER_ACTIVE" }
+
+export enum Type {BREAKFAST = "BREAKFAST", LUNCH = "LUNCH", DINNER = "DINNER", SNACK = "SNACK", DESSERT = "DESSERT", DRINK = "DRINK", OTHER = "OTHER"}
 
 export enum Difficulty { BEGINNER = "BEGINNER", INTERMEDIATE_ADVANCED = "INTERMEDIATE_ADVANCED",SELECT= "SELECT" }
 
