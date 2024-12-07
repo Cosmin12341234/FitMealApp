@@ -4,6 +4,7 @@ import com.example.demo.dto.meal.MealResponse;
 import com.example.demo.dto.user.UserRequest;
 import com.example.demo.dto.user.UserResponse;
 import com.example.demo.dto.workout.WorkoutResponse;
+import com.example.demo.dto.workoutPlan.WorkoutPlanResponse;
 import com.example.demo.exceptions.AuthException;
 import com.example.demo.model.Meal;
 import com.example.demo.model.User;
@@ -15,6 +16,7 @@ import com.example.demo.repository.UserRepo;
 import com.example.demo.utils.mapper.MealMapper;
 import com.example.demo.utils.mapper.UserMapper;
 import com.example.demo.utils.mapper.WorkoutMapper;
+import com.example.demo.utils.mapper.WorkoutPlanMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -126,6 +128,11 @@ public class UserService {
     public List<MealResponse> getMealsByUsername(String username) {
         User user = findByUsername(username);
         return MealMapper.entityListToDto(user.getMeals());
+    }
+
+    public List<WorkoutPlanResponse> getWorkoutsGeneratedByUsername(String username) {
+        User user = findByUsername(username);
+        return WorkoutPlanMapper.entityListToDto(user.getWorkoutPlans());
     }
 
     public int getBMRById(Long id) {

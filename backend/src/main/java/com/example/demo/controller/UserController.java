@@ -5,6 +5,7 @@ import com.example.demo.dto.meal.MealResponse;
 import com.example.demo.dto.user.UserRequest;
 import com.example.demo.dto.user.UserResponse;
 import com.example.demo.dto.workout.WorkoutResponse;
+import com.example.demo.dto.workoutPlan.WorkoutPlanResponse;
 import com.example.demo.exceptions.AuthException;
 import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -194,6 +195,24 @@ public class UserController {
     public ResponseEntity<List<MealResponse>> getAllMealsByUsername(@PathVariable("username") String username) {
         List<MealResponse> meals = userService.getMealsByUsername(username);
         return ResponseEntity.ok(meals);
+    }
+
+    @Operation(summary = "Get all workouts generated username of the one who created them", description = "This endpoint is used to retrieve all workouts generated of a user by username.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Workout plans found successfully",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = WorkoutPlanResponse.class)))}),
+            @ApiResponse(responseCode = "404", description = "No workouts plan found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @GetMapping("/plans/{username}")
+    public ResponseEntity<List<WorkoutPlanResponse>> getAllWorkoutsGeneratedByUsername(@PathVariable("username") String username) {
+        List<WorkoutPlanResponse> workoutsGenerated = userService.getWorkoutsGeneratedByUsername(username);
+        return ResponseEntity.ok(workoutsGenerated);
     }
 
     @Operation(summary = "Get the calories intake by id", description = "This endpoint is used to retrieve the calories intake for a user by id.")
