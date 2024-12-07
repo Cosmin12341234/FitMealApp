@@ -4,6 +4,7 @@ import { Logo } from "@/features/shared/components/ui/logo"
 import { Role } from "@/utils/types"
 import { UserService } from "@/features/user/services/UserService"
 import { useEffect, useState } from "react"
+import {Zap} from "lucide-react";
 
 type MenuItem = {
     icon: React.FC
@@ -17,6 +18,7 @@ const menuItems: MenuItem[] = [
     { icon: DumbbellIcon, label: 'Workouts', href: '/workout' },
     { icon: UtensilsIcon, label: 'Meals', href: '/meals' },
     { icon: UserIcon, label: 'Profile', href: '/profile' },
+    { icon: Zap, label: 'WorkoutGenerator', href: '/generator' },
     {
         icon: SettingsIcon,
         label: 'Admin Center',

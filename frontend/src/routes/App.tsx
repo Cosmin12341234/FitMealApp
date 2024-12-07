@@ -8,6 +8,7 @@ import { ProtectedRoute } from "@/routes/ProtectedRoutes"
 import ProfilePage from "@/features/user/pages/ProfilePage.tsx";
 import HomePage from "@/features/home/pages/HomePage.tsx";
 import AdminPage from "@/features/admin/pages/AdminPage.tsx";
+import WorkoutGenerator from "@/features/workoutGenerator/pages/WorkoutGeneratorPage.tsx";
 
 function App() {
     return (
@@ -52,6 +53,14 @@ function App() {
                     element={
                         <ProtectedRoute>
                             <AdminPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/generator"
+                    element={
+                        <ProtectedRoute>
+                            <WorkoutGenerator />
                         </ProtectedRoute>
                     }
                 />

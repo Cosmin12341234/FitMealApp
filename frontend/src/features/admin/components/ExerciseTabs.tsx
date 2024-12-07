@@ -10,6 +10,8 @@ import { Input } from "@/features/shared/components/ui/input.tsx"
 import { MuscleSelect } from "@/features/exercise/components/ui/muscle-select.tsx"
 import { EquipmentSelect } from "@/features/exercise/components/ui/equipment-select.tsx"
 import { DifficultySelect } from "@/features/exercise/components/ui/difficulty-select.tsx"
+import { AxiosError } from 'axios'
+import { toast } from "sonner"
 
 const initialExerciseState: ExerciseRequest = {
     name: '',
@@ -48,8 +50,14 @@ export function ExercisesTab() {
         try {
             await ExerciseService.deleteExercise(exerciseId)
             setExercises(exercises.filter(exercise => exercise.id !== exerciseId))
+            toast.success("Exercise deleted successfully")
         } catch (error) {
-            console.error('Failed to delete exercise:', error)
+            if ((error as AxiosError).response?.status === 409) {
+                toast.error("This exercise cannot be deleted as it's currently part of an active workout plan")
+            } else {
+                toast.error("Failed to delete exercise")
+                console.error('Failed to delete exercise:', error)
+            }
         }
     }
 
