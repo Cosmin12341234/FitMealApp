@@ -57,6 +57,9 @@ public class ExerciseController {
             @ApiResponse(responseCode = "404", description = "The exercise with the given id does not exist",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "409", description = "Exercise is in use and cannot be deleted",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseDto.class))})
