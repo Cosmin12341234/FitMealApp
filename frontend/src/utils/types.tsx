@@ -170,7 +170,7 @@ export type WorkoutPlanRequest={
     name:string;
     frequency:number;
     experience:Difficulty;
-    goals:WorkoutGoals;
+    goal:WorkoutGoals;
     gender:Gender;
     equipment:Equipment[];
 };
@@ -210,7 +210,7 @@ export enum ActivityLevel { SEDENTARY = "SEDENTARY", LIGHTLY_ACTIVE = "LIGHTLY_A
 
 export enum Type {BREAKFAST = "BREAKFAST", LUNCH = "LUNCH", DINNER = "DINNER", SNACK = "SNACK", DESSERT = "DESSERT", DRINK = "DRINK", OTHER = "OTHER"}
 
-export enum Difficulty { BEGINNER = "BEGINNER", INTERMEDIATE_ADVANCED = "INTERMEDIATE_ADVANCED",SELECT= "SELECT" }
+export enum Difficulty { BEGINNER = "BEGINNER", INTERMEDIATE_ADVANCED = "INTERMEDIATE_ADVANCED"}
 
 export enum Equipment {
     BARBELL = "BARBELL",
@@ -230,7 +230,6 @@ export enum Equipment {
     CARDIO = "CARDIO",
     SMITH_MACHINE = "SMITH_MACHINE",
     RECOVERY = "RECOVERY",
-    SELECT= "SELECT"
 }
 
 export enum Muscle {
