@@ -87,4 +87,23 @@ public class ExerciseController {
         List<ExerciseResponse> exercisesResponses = exerciseService.getAllExercisesResponse();
         return ResponseEntity.ok(exercisesResponses);
     }
+
+
+    @Operation(summary = "Populate the exercise database with basic exercises", description = "This endpoint is used to get populate the db of the exercises with basic exercises.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Populated successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "404", description = "No exercises found",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseDto.class))})
+    })
+    @PutMapping
+    public ResponseEntity<?> populate() {
+        exerciseService.populateTheDatabase();
+        return ResponseEntity.ok().build();
+    }
 }
