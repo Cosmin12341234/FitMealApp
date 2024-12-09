@@ -58,15 +58,73 @@ public class WorkoutPlanService {
     }
 
     public List<WorkoutDay> createWorkout(WorkoutPlan workoutPlan) {
-        return fullBodyWorkoutOneDay(workoutPlan);
-    }
 
+        if (workoutPlan.getFrequency() == 1){
+            if (workoutPlan.getGender().equals(Gender.MALE)){
+                return fullBodyWorkoutOneDayMale(workoutPlan);
+            } else {
+                return fullBodyWorkoutOneDayFemaile(workoutPlan);
+            }
+        }
+        else if(workoutPlan.getFrequency()==2){
+            if(workoutPlan.getGender().equals(Gender.MALE)){
+                return upperLowerTwoDaysMale(workoutPlan);
+            } else {
+                return upperLowerTwoDaysFemale(workoutPlan);
+            }
+        }
+        else if(workoutPlan.getFrequency()==3){
+            if (workoutPlan.getGender().equals(Gender.MALE)){
+                return pushPullLegsThreeDaysMale(workoutPlan);
+            } else {
+                return threeDaysFemale(workoutPlan);
+            }
+        }
+        else return broSplitFiveDays(workoutPlan);
+    }
 
     public List<Exercise> getExercisesForMuscleGroup(WorkoutPlan workoutPlan, Muscle muscle) {
         return exerciseService.getExercisesByEquipmentAndMuscle(workoutPlan.getEquipment(), muscle);
     }
 
-    public List<WorkoutDay> fullBodyWorkoutOneDay(WorkoutPlan workoutPlan){
+    public List<WorkoutDay> fullBodyWorkoutOneDayFemaile(WorkoutPlan workoutPlan) {
+        List<Exercise> fullBodyExercises = new ArrayList<>();
+        List<Exercise> quadsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.QUADS);
+        List<Exercise> randomQuadsExercises = exerciseService.getRandomExercises(quadsExercises, 1);
+
+        List<Exercise> hamstringsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.HAMSTRINGS);
+        List<Exercise> randomHamstringsExercises = exerciseService.getRandomExercises(hamstringsExercises, 1);
+
+        List<Exercise> glutesExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.GLUTES);
+        List<Exercise> randomGlutesExercises = exerciseService.getRandomExercises(glutesExercises, 1);
+
+        List<Exercise> chestExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.CHEST);
+        List<Exercise> randomChestExercises = exerciseService.getRandomExercises(chestExercises, 1);
+
+        List<Exercise> backExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATS);
+        List<Exercise> randomBackExercises = exerciseService.getRandomExercises(backExercises, 1);
+
+        List<Exercise> shouldersExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATERAL_DELTOID);
+        List<Exercise> randomShouldersExercises = exerciseService.getRandomExercises(shouldersExercises, 1);
+
+        fullBodyExercises.addAll(randomQuadsExercises);
+        fullBodyExercises.addAll(randomHamstringsExercises);
+        fullBodyExercises.addAll(randomGlutesExercises);
+        fullBodyExercises.addAll(randomChestExercises);
+        fullBodyExercises.addAll(randomBackExercises);
+        fullBodyExercises.addAll(randomShouldersExercises);
+
+        return List.of(
+                new WorkoutDay(
+                        "Full Body Day",
+                        workoutPlan,
+                        fullBodyExercises
+                )
+        );
+
+    }
+
+    public List<WorkoutDay> fullBodyWorkoutOneDayMale(WorkoutPlan workoutPlan){
         List<Exercise> fullBodyExercises = new ArrayList<>();
         List<Exercise> quadsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.QUADS);
         List<Exercise> randomQuadsExercises = exerciseService.getRandomExercises(quadsExercises, 1);
@@ -98,6 +156,290 @@ public class WorkoutPlanService {
                         "Full Body Day",
                         workoutPlan,
                         fullBodyExercises
+                )
+        );
+
+    }
+
+    public List<WorkoutDay> upperLowerTwoDaysMale(WorkoutPlan workoutPlan){
+        List<Exercise> upperBodyExercises = new ArrayList<>();
+        List<Exercise> chestExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.CHEST);
+        List<Exercise> randomChestExercises = exerciseService.getRandomExercises(chestExercises, 1);
+
+        List<Exercise> backExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATS);
+        List<Exercise> randomBackExercises = exerciseService.getRandomExercises(backExercises, 1);
+
+        List<Exercise> shouldersExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATERAL_DELTOID);
+        List<Exercise> randomShouldersExercises = exerciseService.getRandomExercises(shouldersExercises, 1);
+
+        List<Exercise> tricepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.TRICEPS);
+        List<Exercise> randomTricepsExercises = exerciseService.getRandomExercises(tricepsExercises, 1);
+
+        List<Exercise> bicepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.BICEPS);
+        List<Exercise> randomBicepsExercises = exerciseService.getRandomExercises(bicepsExercises, 1);
+
+        upperBodyExercises.addAll(randomChestExercises);
+        upperBodyExercises.addAll(randomBackExercises);
+        upperBodyExercises.addAll(randomShouldersExercises);
+        upperBodyExercises.addAll(randomTricepsExercises);
+        upperBodyExercises.addAll(randomBicepsExercises);
+
+        List<Exercise> lowerBodyExercises = new ArrayList<>();
+        List<Exercise> quadsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.QUADS);
+        List<Exercise> randomQuadsExercises = exerciseService.getRandomExercises(quadsExercises, 1);
+
+        List<Exercise> hamstringsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.HAMSTRINGS);
+        List<Exercise> randomHamstringsExercises = exerciseService.getRandomExercises(hamstringsExercises, 1);
+
+        List<Exercise> calvesExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.CALVES);
+        List<Exercise> randomCalvessExercises = exerciseService.getRandomExercises(calvesExercises, 1);
+
+        List<Exercise> innerThighExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.INNER_THIGH);
+        List<Exercise> randomInnerTightExercises = exerciseService.getRandomExercises(innerThighExercises, 1);
+
+        List<Exercise> outerTightsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.OUTER_QUADRICEP);
+        List<Exercise> randomOuterTightExercises = exerciseService.getRandomExercises(outerTightsExercises, 1);
+
+        lowerBodyExercises.addAll(randomQuadsExercises);
+        lowerBodyExercises.addAll(randomHamstringsExercises);
+        lowerBodyExercises.addAll(randomCalvessExercises);
+        lowerBodyExercises.addAll(randomInnerTightExercises);
+        lowerBodyExercises.addAll(randomOuterTightExercises);
+
+        return List.of(
+                new WorkoutDay(
+                        "Upper Body Day",
+                        workoutPlan,
+                        upperBodyExercises
+                ),
+                new WorkoutDay(
+                        "Lower Body Day",
+                        workoutPlan,
+                        lowerBodyExercises
+                )
+        );
+
+    }
+
+    public List<WorkoutDay> upperLowerTwoDaysFemale(WorkoutPlan workoutPlan){
+        List<Exercise> upperBodyExercises = new ArrayList<>();
+        List<Exercise> chestExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.CHEST);
+        List<Exercise> randomChestExercises = exerciseService.getRandomExercises(chestExercises, 1);
+
+        List<Exercise> backExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATS);
+        List<Exercise> randomBackExercises = exerciseService.getRandomExercises(backExercises, 1);
+
+        List<Exercise> shouldersExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATERAL_DELTOID);
+        List<Exercise> randomShouldersExercises = exerciseService.getRandomExercises(shouldersExercises, 1);
+
+        List<Exercise> tricepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.TRICEPS);
+        List<Exercise> randomTricepsExercises = exerciseService.getRandomExercises(tricepsExercises, 1);
+
+        List<Exercise> bicepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.BICEPS);
+        List<Exercise> randomBicepsExercises = exerciseService.getRandomExercises(bicepsExercises, 1);
+
+        upperBodyExercises.addAll(randomChestExercises);
+        upperBodyExercises.addAll(randomBackExercises);
+        upperBodyExercises.addAll(randomShouldersExercises);
+        upperBodyExercises.addAll(randomTricepsExercises);
+        upperBodyExercises.addAll(randomBicepsExercises);
+
+        List<Exercise> lowerBodyExercises = new ArrayList<>();
+        List<Exercise> quadsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.QUADS);
+        List<Exercise> randomQuadsExercises = exerciseService.getRandomExercises(quadsExercises, 1);
+
+        List<Exercise> hamstringsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.HAMSTRINGS);
+        List<Exercise> randomHamstringsExercises = exerciseService.getRandomExercises(hamstringsExercises, 1);
+
+        List<Exercise> calvesExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.GLUTES);
+        List<Exercise> randomCalvessExercises = exerciseService.getRandomExercises(calvesExercises, 1);
+
+        List<Exercise> innerThighExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.INNER_THIGH);
+        List<Exercise> randomInnerTightExercises = exerciseService.getRandomExercises(innerThighExercises, 1);
+
+        List<Exercise> outerTightsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.OUTER_QUADRICEP);
+        List<Exercise> randomOuterTightExercises = exerciseService.getRandomExercises(outerTightsExercises, 1);
+
+        lowerBodyExercises.addAll(randomQuadsExercises);
+        lowerBodyExercises.addAll(randomHamstringsExercises);
+        lowerBodyExercises.addAll(randomCalvessExercises);
+        lowerBodyExercises.addAll(randomInnerTightExercises);
+        lowerBodyExercises.addAll(randomOuterTightExercises);
+
+        return List.of(
+                new WorkoutDay(
+                        "Upper Body Day",
+                        workoutPlan,
+                        upperBodyExercises
+                ),
+                new WorkoutDay(
+                        "Lower Body Day",
+                        workoutPlan,
+                        lowerBodyExercises
+                )
+        );
+
+    }
+
+    public List<WorkoutDay> pushPullLegsThreeDaysMale(WorkoutPlan workoutPlan){
+        List<Exercise> pushExercises = new ArrayList<>();
+
+        List<Exercise> chestExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.CHEST);
+        List<Exercise> randomChestExercises = exerciseService.getRandomExercises(chestExercises, 2);
+
+        List<Exercise> lowerChestExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.MID_AND_LOWER_CHEST);
+        List<Exercise> randomLowerChestExercises = exerciseService.getRandomExercises(lowerChestExercises, 1);
+
+        List<Exercise> shouldersExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATERAL_DELTOID);
+        List<Exercise> randomShouldersExercises = exerciseService.getRandomExercises(shouldersExercises, 1);
+
+        List<Exercise> posteriorDeltoidExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.POSTERIOR_DELTOID);
+        List<Exercise> randomPosteriorDeltoidExercises = exerciseService.getRandomExercises(posteriorDeltoidExercises, 1);
+
+        List<Exercise> tricepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.TRICEPS);
+        List<Exercise> randomTricepsExercises = exerciseService.getRandomExercises(tricepsExercises, 2);
+
+        pushExercises.addAll(randomChestExercises);
+        pushExercises.addAll(randomLowerChestExercises);
+        pushExercises.addAll(randomShouldersExercises);
+        pushExercises.addAll(randomPosteriorDeltoidExercises);
+        pushExercises.addAll(randomTricepsExercises);
+
+        List<Exercise> pullExercises = new ArrayList<>();
+
+        List<Exercise> backExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATS);
+        List<Exercise> randomBackExercises = exerciseService.getRandomExercises(backExercises, 2);
+
+        List<Exercise> latsMidBackExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.TRAPS_MID_BACK);
+        List<Exercise> randomLatsMidBackExercises = exerciseService.getRandomExercises(latsMidBackExercises, 1);
+
+        List<Exercise> bicepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.BICEPS);
+        List<Exercise> randomBicepsExercises = exerciseService.getRandomExercises(bicepsExercises, 2);
+
+        pullExercises.addAll(randomBackExercises);
+        pullExercises.addAll(randomBicepsExercises);
+        pullExercises.addAll(randomLatsMidBackExercises);
+
+        List<Exercise> lowerBodyExercises = new ArrayList<>();
+        List<Exercise> quadsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.QUADS);
+        List<Exercise> randomQuadsExercises = exerciseService.getRandomExercises(quadsExercises, 1);
+
+        List<Exercise> hamstringsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.HAMSTRINGS);
+        List<Exercise> randomHamstringsExercises = exerciseService.getRandomExercises(hamstringsExercises, 1);
+
+        List<Exercise> calvesExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.CALVES);
+        List<Exercise> randomCalvessExercises = exerciseService.getRandomExercises(calvesExercises, 1);
+
+        List<Exercise> innerThighExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.INNER_THIGH);
+        List<Exercise> randomInnerTightExercises = exerciseService.getRandomExercises(innerThighExercises, 1);
+
+        List<Exercise> outerTightsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.OUTER_QUADRICEP);
+        List<Exercise> randomOuterTightExercises = exerciseService.getRandomExercises(outerTightsExercises, 1);
+
+        lowerBodyExercises.addAll(randomQuadsExercises);
+        lowerBodyExercises.addAll(randomHamstringsExercises);
+        lowerBodyExercises.addAll(randomCalvessExercises);
+        lowerBodyExercises.addAll(randomInnerTightExercises);
+        lowerBodyExercises.addAll(randomOuterTightExercises);
+
+        return List.of(
+                new WorkoutDay(
+                        "Push Day",
+                        workoutPlan,
+                        pushExercises
+                ),
+                new WorkoutDay(
+                        "Pull Day",
+                        workoutPlan,
+                        pullExercises
+                ),
+                new WorkoutDay(
+                        "Legs Day",
+                        workoutPlan,
+                        lowerBodyExercises
+                )
+        );
+    }
+
+    public List<WorkoutDay> threeDaysFemale(WorkoutPlan workoutPlan){
+
+        List<Exercise> lowerBodyExercises1 = new ArrayList<>();
+        List<Exercise> quadsExercises1 = getExercisesForMuscleGroup(workoutPlan,Muscle.QUADS);
+        List<Exercise> randomQuadsExercises1 = exerciseService.getRandomExercises(quadsExercises1, 2);
+
+        List<Exercise> hamstringsExercises1 = getExercisesForMuscleGroup(workoutPlan,Muscle.HAMSTRINGS);
+        List<Exercise> randomHamstringsExercises1 = exerciseService.getRandomExercises(hamstringsExercises1, 2);
+
+        List<Exercise> innerThighExercises1 = getExercisesForMuscleGroup(workoutPlan,Muscle.INNER_THIGH);
+        List<Exercise> randomInnerTightExercises1 = exerciseService.getRandomExercises(innerThighExercises1, 1);
+
+        List<Exercise> outerTightsExercises1 = getExercisesForMuscleGroup(workoutPlan,Muscle.OUTER_QUADRICEP);
+        List<Exercise> randomOuterTightExercises1 = exerciseService.getRandomExercises(outerTightsExercises1, 1);
+
+        lowerBodyExercises1.addAll(randomQuadsExercises1);
+        lowerBodyExercises1.addAll(randomHamstringsExercises1);
+        lowerBodyExercises1.addAll(randomInnerTightExercises1);
+        lowerBodyExercises1.addAll(randomOuterTightExercises1);
+
+        List<Exercise> upperBodyExercises = new ArrayList<>();
+        List<Exercise> chestExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.CHEST);
+        List<Exercise> randomChestExercises = exerciseService.getRandomExercises(chestExercises, 1);
+
+        List<Exercise> backExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATS);
+        List<Exercise> randomBackExercises = exerciseService.getRandomExercises(backExercises, 1);
+
+        List<Exercise> shouldersExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.LATERAL_DELTOID);
+        List<Exercise> randomShouldersExercises = exerciseService.getRandomExercises(shouldersExercises, 1);
+
+        List<Exercise> tricepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.TRICEPS);
+        List<Exercise> randomTricepsExercises = exerciseService.getRandomExercises(tricepsExercises, 1);
+
+        List<Exercise> bicepsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.BICEPS);
+        List<Exercise> randomBicepsExercises = exerciseService.getRandomExercises(bicepsExercises, 1);
+
+        upperBodyExercises.addAll(randomChestExercises);
+        upperBodyExercises.addAll(randomBackExercises);
+        upperBodyExercises.addAll(randomShouldersExercises);
+        upperBodyExercises.addAll(randomTricepsExercises);
+        upperBodyExercises.addAll(randomBicepsExercises);
+
+        List<Exercise> lowerBodyExercises = new ArrayList<>();
+        List<Exercise> quadsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.QUADS);
+        List<Exercise> randomQuadsExercises = exerciseService.getRandomExercises(quadsExercises, 1);
+
+        List<Exercise> hamstringsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.HAMSTRINGS);
+        List<Exercise> randomHamstringsExercises = exerciseService.getRandomExercises(hamstringsExercises, 1);
+
+        List<Exercise> calvesExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.GLUTES);
+        List<Exercise> randomCalvessExercises = exerciseService.getRandomExercises(calvesExercises, 2);
+
+        List<Exercise> innerThighExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.INNER_THIGH);
+        List<Exercise> randomInnerTightExercises = exerciseService.getRandomExercises(innerThighExercises, 1);
+
+        List<Exercise> outerTightsExercises = getExercisesForMuscleGroup(workoutPlan,Muscle.OUTER_QUADRICEP);
+        List<Exercise> randomOuterTightExercises = exerciseService.getRandomExercises(outerTightsExercises, 1);
+
+        lowerBodyExercises.addAll(randomQuadsExercises);
+        lowerBodyExercises.addAll(randomHamstringsExercises);
+        lowerBodyExercises.addAll(randomCalvessExercises);
+        lowerBodyExercises.addAll(randomInnerTightExercises);
+        lowerBodyExercises.addAll(randomOuterTightExercises);
+
+        return List.of(
+                new WorkoutDay(
+                        "Lower Body Day",
+                        workoutPlan,
+                        lowerBodyExercises1
+                ),
+                new WorkoutDay(
+                        "Upper Body Day",
+                        workoutPlan,
+                        upperBodyExercises
+                ),
+                new WorkoutDay(
+                        "LegGlutes Day",
+                        workoutPlan,
+                        lowerBodyExercises
                 )
         );
 
