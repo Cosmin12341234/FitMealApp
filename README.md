@@ -33,7 +33,7 @@ Manage your personal information and fitness goals.
 
 ### Admin Center
 Administrative interface for managing user accounts and exercise database.
-![Photo7](https://github.com/user-attachments/assets/ed3a68be-2a37-48b0-8a23-9b8b7b29ba4b)
+![Photo7](https://github.com/user-attachments/assets/ab4dbf69-9dd0-4890-a5ae-cade32f03727)
 ![Photo8](https://github.com/user-attachments/assets/79fe735c-4eed-4a8d-b5c7-820d47720461)
 ![Photo9](https://github.com/user-attachments/assets/55a4750d-1cab-4acb-b089-60cb549cb735)
 
