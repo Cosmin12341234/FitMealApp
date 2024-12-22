@@ -35,3 +35,14 @@ export const handleGetExercises=(username:string,password:string)=>{
             throw err;
         });
 }
+
+export const handlePopulateExercises = (username: string, password: string) => {
+    return axios.put(`${exercisessUrl}`, null, secureConfig(username, password))
+        .then(response => {
+            return response.data;
+        })
+        .catch((err) => {
+            console.error('Error populating exercises', err);
+            throw err;
+        });
+}
