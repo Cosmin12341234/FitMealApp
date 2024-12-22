@@ -17,8 +17,8 @@ const initialExerciseState: ExerciseRequest = {
     name: '',
     primaryMuscle: Muscle.SELECT,
     secondaryMuscles: [Muscle.SELECT, Muscle.SELECT],
-    equipment: Equipment.SELECT,
-    difficulty: Difficulty.SELECT,
+    equipment: Equipment.BARBELL,
+    difficulty: Difficulty.BEGINNER,
     instructions: ''
 }
 
@@ -79,10 +79,29 @@ export function ExercisesTab() {
         setNewExercise({ ...newExercise, secondaryMuscles: updatedSecondaryMuscles })
     }
 
+    const handlePopulateExercises = async () => {
+        try {
+            await ExerciseService.populateExercises();
+            toast.success("Database populated with basic exercises");
+            await loadExercises();
+        } catch (error) {
+            toast.error("Failed to populate exercises");
+            console.error('Failed to populate exercises:', error);
+        }
+    }
+
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-2xl font-semibold text-[#900020]">Exercises</CardTitle>
+                <div className="flex justify-between items-center">
+                    <CardTitle className="text-2xl font-semibold text-[#900020]">Exercises</CardTitle>
+                    <Button
+                        onClick={handlePopulateExercises}
+                        className="bg-[#900020] hover:bg-[#DC143C] text-white"
+                    >
+                        Populate Basic Exercises
+                    </Button>
+                </div>
             </CardHeader>
             <CardContent>
                 <Card className="mb-6">
