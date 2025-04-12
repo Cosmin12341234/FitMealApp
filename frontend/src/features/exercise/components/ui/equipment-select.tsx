@@ -14,11 +14,11 @@ export function EquipmentSelect({ value, onChange, label }: EquipmentSelectProps
                 <SelectValue placeholder={label} />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value={Equipment.SELECT} disabled>
+                <SelectItem value={Equipment.BARBELL} disabled>
                     {label}
                 </SelectItem>
                 {Object.values(Equipment)
-                    .filter(equipment => equipment !== Equipment.SELECT)
+                    .filter(equipment => equipment !== Equipment.BARBELL)
                     .map((equipment) => (
                         <SelectItem key={equipment} value={equipment}>
                             {equipment.replace(/_/g, ' ')}

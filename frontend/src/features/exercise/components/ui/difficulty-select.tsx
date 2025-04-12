@@ -14,11 +14,11 @@ export function DifficultySelect({ value, onChange, label }: DifficultySelectPro
                 <SelectValue placeholder={label} />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value={Difficulty.SELECT} disabled>
+                <SelectItem value={Difficulty.BEGINNER} disabled>
                     {label}
                 </SelectItem>
                 {Object.values(Difficulty)
-                    .filter(difficulty => difficulty !== Difficulty.SELECT)
+                    .filter(difficulty => difficulty !== Difficulty.BEGINNER)
                     .map((difficulty) => (
                         <SelectItem key={difficulty} value={difficulty}>
                             {difficulty.replace(/_/g, ' ')}
