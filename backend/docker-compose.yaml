@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DATASOURCE_URL=jdbc:postgresql://db:5432/FitMeal
+      - DATASOURCE_USER=postgres
+      - DATASOURCE_PASS=Marcelino123
+
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=Marcelino123
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=FitMeal
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
