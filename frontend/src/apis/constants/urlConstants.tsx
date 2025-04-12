@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'http://13.60.187.142:8080';
 export const signupUrl = `${baseUrl}/signup`;
 export const loginUrl = `${baseUrl}/login`;
 export const usersUrl = `${baseUrl}/users`;
