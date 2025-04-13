@@ -9,17 +9,17 @@ services:
       - db
     environment:
       - DATASOURCE_URL=jdbc:postgresql://db:5432/FitMeal
-      - DATASOURCE_USER=postgres
-      - DATASOURCE_PASS=Marcelino123
+      - DATASOURCE_USER=${DATASOURCE_USER}
+      - DATASOURCE_PASS=${DATASOURCE_PASS}
 
   db:
     image: postgres:15
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=Marcelino123
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=FitMeal
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
